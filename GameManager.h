@@ -1,13 +1,14 @@
 #pragma once
-#include "Piece.h"
+#include "Player.h"
 
 class GameManager
 {
 public:
 	GameManager();
 
-	void DisplayBoard();
-	bool Run();
+	void displayBoard();
+	bool run();
 private:
-	Piece *pieces[];
+
+	Player blackSide;
 };

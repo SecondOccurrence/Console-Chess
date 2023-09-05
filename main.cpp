@@ -9,7 +9,7 @@ int main()
     bool quit = false;
     while(!quit)
     {
-        quit = gm.Run();
+        quit = gm.run();
     }
 
     std::cout << "Game Ended" << std::endl;

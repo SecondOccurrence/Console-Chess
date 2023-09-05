@@ -5,7 +5,6 @@ class Piece
 public:
 	Piece();
 
-
 protected:
 	bool side; //white = true, black = false
 	int position;
