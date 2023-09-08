@@ -7,6 +7,7 @@ public:
 	Piece();
 	int getX() const;
 	int getY() const;
+	PieceInfo getPieceInfo();
 
 protected:
 	PieceInfo info;

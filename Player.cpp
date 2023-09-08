@@ -120,8 +120,7 @@ std::vector<PieceInfo> Player::getPiecePositions()
 	std::cout << "SIZE: " << pieceAmount << std::endl;
 	for (int i = 0; i < pieceAmount; i++)
 	{
-		std::cout << pieces[i].getX() << std::endl;
-		//piecePosArr.push_back(pieces[i]->getPieceInfo());
+		piecePosArr.push_back(pieces[i].getPieceInfo());
 	}
 	return piecePosArr;
 }

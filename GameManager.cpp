@@ -1,14 +1,18 @@
+#include <vector>
+
 #include "GameManager.h"
 
 GameManager::GameManager()
 {
 	blackSide = new Player(false);
+
+	whiteSide = new Player(true);
 }
 
 void GameManager::displayBoard()
 {
-	//loop through each piece
-		//note their position
+	std::vector<PieceInfo> whitePieces = whiteSide.getPiecePositions();
+
 	//display
 
 	//perhaps tie each object type with numeric value

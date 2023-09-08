@@ -1,5 +1,7 @@
 #include "Piece.h"
 
+#include <iostream>
+
 Piece::Piece()
 {
 	info.side = true; //white
@@ -16,4 +18,9 @@ int Piece::getX() const
 int Piece::getY() const
 {
 	return info.posY;
+}
+
+PieceInfo Piece::getPieceInfo()
+{
+	return info;
 }
