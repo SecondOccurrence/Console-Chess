@@ -17,8 +17,12 @@ void GameManager::displayBoard()
 bool GameManager::run()
 {
 	bool gameEnded = false;
+	std::string move;
 
 	displayBoard();
+
+	move = whiteSide.getMove();
+
 
 	//move pieces, return value
 		//checkmate, clear for next move

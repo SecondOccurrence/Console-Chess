@@ -1,7 +1,8 @@
 #include "Bishop.h"
 
-Bishop::Bishop(bool val, int pos)
+Bishop::Bishop(bool val, int posX, int posY)
 {
 	side = val; //assigns t/f. t=white, f=black
-	position = pos;
+	position[0] = 0;
+	position[1] = 0;
 }

@@ -11,6 +11,5 @@ int main()
     {
         quit = gm.run();
     }
-
     std::cout << "Game Ended" << std::endl;
 }

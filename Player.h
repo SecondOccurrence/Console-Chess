@@ -1,6 +1,8 @@
 #pragma once
 #include "Piece.h"
+
 #include <vector>
+#include <iostream>
 
 class Player
 {
@@ -9,7 +11,8 @@ public:
 	Player(bool isWhite);
 	~Player();
 
-	void toMove();
+	std::string getMove();
+	bool validateMove(std::string playerMove);
 
 private:
 	bool whiteSide;

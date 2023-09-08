@@ -4,5 +4,5 @@
 class Knight : public Piece
 {
 public:
-	Knight(bool val, int pos);
+	Knight(bool val, int posX, int posY);
 };

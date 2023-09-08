@@ -14,59 +14,108 @@ Player::Player()
 Player::Player(bool isWhite)
 {
 	whiteSide = isWhite;
-	
-	int pawnPos;
+
+	int pawnPosY;
 	//back pieces
 	if (whiteSide == true)
 	{
-		pawnPos = 8;
-		pieces.push_back(new Knight(whiteSide, 1));
-		pieces.push_back(new Knight(whiteSide, 6));
+		pawnPosY = 1;
+		pieces.push_back(new Knight(whiteSide, 1, 0));
+		pieces.push_back(new Knight(whiteSide, 6, 0));
 
-		pieces.push_back(new Bishop(whiteSide, 2));
-		pieces.push_back(new Bishop(whiteSide, 5));
+		pieces.push_back(new Bishop(whiteSide, 2, 0));
+		pieces.push_back(new Bishop(whiteSide, 5, 0));
 
-		pieces.push_back(new Rook(whiteSide, 0));
-		pieces.push_back(new Rook(whiteSide, 7));
+		pieces.push_back(new Rook(whiteSide, 0, 0));
+		pieces.push_back(new Rook(whiteSide, 7, 0));
 
-		pieces.push_back(new Queen(whiteSide, 3));
+		pieces.push_back(new Queen(whiteSide, 3, 0));
 		
-		pieces.push_back(new King(whiteSide, 4));
+		pieces.push_back(new King(whiteSide, 4, 0));
 	}	
 	else
 	{
-		pawnPos = 48;
-		pieces.push_back(new Knight(whiteSide, 57));
-		pieces.push_back(new Knight(whiteSide, 62));
+		pawnPosY = 7;
+		pieces.push_back(new Knight(whiteSide, 1, 7));
+		pieces.push_back(new Knight(whiteSide, 6, 7));
 
-		pieces.push_back(new Bishop(whiteSide, 58));
-		pieces.push_back(new Bishop(whiteSide, 61));
+		pieces.push_back(new Bishop(whiteSide, 2, 7));
+		pieces.push_back(new Bishop(whiteSide, 5, 7));
 
-		pieces.push_back(new Rook(whiteSide, 56));
-		pieces.push_back(new Rook(whiteSide, 63));
+		pieces.push_back(new Rook(whiteSide, 0, 7));
+		pieces.push_back(new Rook(whiteSide, 7, 7));
 
-		pieces.push_back(new Queen(whiteSide, 59));
+		pieces.push_back(new Queen(whiteSide, 3, 7));
 
-		pieces.push_back(new King(whiteSide, 60));
+		pieces.push_back(new King(whiteSide, 4, 7));
 	}
 			
 	//pawns
 	for (int i = 0; i < 8; i++)
 	{
-		pieces[i] = new Pawn(true, pawnPos);
-		pawnPos++;
+		pieces.push_back(new Pawn(whiteSide, i, pawnPosY));
+		pawnPosY++;
 	}
 }
 
 Player::~Player()
 {
-	for (auto piece : pieces)
+	for (auto& piece : pieces)
 	{
 		delete piece;
 	}
 }
 
-void Player::toMove()
+std::string Player::getMove()
 {
+	std::string move;
 
+	bool validMove = false;
+	while (!validMove)
+	{
+		if (whiteSide)
+			std::cout << "White move:" << std::endl;
+		else
+			std::cout << "Black move:" << std::endl;
+
+		std::cin >> move;
+
+		validMove = validateMove(move);
+		if (!validMove)
+			std::cout << "Invalid move. Try again." << std::endl;
+	}
+
+	return move;
+}
+
+bool Player::validateMove(std::string playerMove)
+{
+	if (playerMove.length() != 4)
+		return false;
+
+	bool valid = true;
+	int xcoord;
+	int ycoord;
+
+	// check if move is on board
+	for (int i = 0; i < 4; i += 2) 
+	{
+		xcoord = (int)playerMove[i] - 96; // converts char to its position on the board grid (1-8)
+		ycoord = (int)playerMove[i + 1] - 48; // convert char number to ascii number equivalent
+
+		if ((xcoord > 8 || xcoord < 1) || (ycoord > 8 || ycoord < 1))
+		{
+			valid = false;
+			break;
+		}
+	}
+
+	// check if move is being performed on one of player's pieces
+	bool isPlayerPiece = true;
+	xcoord = (int)playerMove[0] - 96;
+	ycoord = (int)playerMove[1] - 48;
+	//if()
+
+
+	return valid;
 }

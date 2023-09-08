@@ -9,6 +9,6 @@ public:
 	void displayBoard();
 	bool run();
 private:
-
+	Player whiteSide;
 	Player blackSide;
 };

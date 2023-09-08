@@ -1,7 +1,8 @@
 #include "Pawn.h"
 
-Pawn::Pawn(bool val, int pos)
+Pawn::Pawn(bool val, int posX, int posY)
 {
 	side = val; //assigns t/f. t=white, f=black
-	position = pos;
+	position[0] = posX;
+	position[1] = posY;
 }
