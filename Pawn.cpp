@@ -2,7 +2,8 @@
 
 Pawn::Pawn(bool val, int posX, int posY)
 {
-	side = val; //assigns t/f. t=white, f=black
-	position[0] = posX;
-	position[1] = posY;
+	info.side = val; //assigns t/f. t=white, f=black
+	info.piece = PAWN;
+	info.posX = posX;
+	info.posY = posY;
 }

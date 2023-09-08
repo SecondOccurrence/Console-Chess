@@ -1,11 +1,13 @@
 #pragma once
+#include "PieceInfo.h"
 
 class Piece
 {
 public:
 	Piece();
+	int getX() const;
+	int getY() const;
 
 protected:
-	bool side; //white = true, black = false
-	int position[2]; //position on the board. 0-63
+	PieceInfo info;
 };
