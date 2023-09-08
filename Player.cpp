@@ -20,49 +20,41 @@ Player::Player(bool isWhite)
 	if (whiteSide == true)
 	{
 		pawnPosY = 1;
-		pieces.push_back(new Knight(whiteSide, 1, 0));
-		pieces.push_back(new Knight(whiteSide, 6, 0));
+		pieces.push_back(Knight(whiteSide, 1, 0));
+		pieces.push_back(Knight(whiteSide, 6, 0));
 
-		pieces.push_back(new Bishop(whiteSide, 2, 0));
-		pieces.push_back(new Bishop(whiteSide, 5, 0));
+		pieces.push_back(Bishop(whiteSide, 2, 0));
+		pieces.push_back(Bishop(whiteSide, 5, 0));
 
-		pieces.push_back(new Rook(whiteSide, 0, 0));
-		pieces.push_back(new Rook(whiteSide, 7, 0));
+		pieces.push_back(Rook(whiteSide, 0, 0));
+		pieces.push_back(Rook(whiteSide, 7, 0));
 
-		pieces.push_back(new Queen(whiteSide, 3, 0));
+		pieces.push_back(Queen(whiteSide, 3, 0));
 		
-		pieces.push_back(new King(whiteSide, 4, 0));
+		pieces.push_back(King(whiteSide, 4, 0));
 	}	
 	else
 	{
 		pawnPosY = 7;
-		pieces.push_back(new Knight(whiteSide, 1, 7));
-		pieces.push_back(new Knight(whiteSide, 6, 7));
+		pieces.push_back(Knight(whiteSide, 1, 7));
+		pieces.push_back(Knight(whiteSide, 6, 7));
 
-		pieces.push_back(new Bishop(whiteSide, 2, 7));
-		pieces.push_back(new Bishop(whiteSide, 5, 7));
+		pieces.push_back(Bishop(whiteSide, 2, 7));
+		pieces.push_back(Bishop(whiteSide, 5, 7));
 
-		pieces.push_back(new Rook(whiteSide, 0, 7));
-		pieces.push_back(new Rook(whiteSide, 7, 7));
+		pieces.push_back(Rook(whiteSide, 0, 7));
+		pieces.push_back(Rook(whiteSide, 7, 7));
 
-		pieces.push_back(new Queen(whiteSide, 3, 7));
+		pieces.push_back(Queen(whiteSide, 3, 7));
 
-		pieces.push_back(new King(whiteSide, 4, 7));
+		pieces.push_back(King(whiteSide, 4, 7));
 	}
 			
 	//pawns
 	for (int i = 0; i < 8; i++)
 	{
-		pieces.push_back(new Pawn(whiteSide, i, pawnPosY));
+		pieces.push_back(Pawn(whiteSide, i, pawnPosY));
 		pawnPosY++;
-	}
-}
-
-Player::~Player()
-{
-	for (auto& piece : pieces)
-	{
-		delete piece;
 	}
 }
 
@@ -118,4 +110,18 @@ bool Player::validateMove(std::string playerMove)
 
 
 	return valid;
+}
+
+std::vector<PieceInfo> Player::getPiecePositions()
+{
+	std::vector<PieceInfo> piecePosArr;
+
+	int pieceAmount = pieces.size();
+	std::cout << "SIZE: " << pieceAmount << std::endl;
+	for (int i = 0; i < pieceAmount; i++)
+	{
+		std::cout << pieces[i].getX() << std::endl;
+		//piecePosArr.push_back(pieces[i]->getPieceInfo());
+	}
+	return piecePosArr;
 }
