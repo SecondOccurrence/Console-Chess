@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 typedef enum { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING } pieceName;
 

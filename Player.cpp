@@ -19,7 +19,7 @@ Player::Player(bool isWhite)
 	//back pieces
 	if (whiteSide == true)
 	{
-		pawnPosY = 1;
+		pawnPosY = 0;
 		pieces.push_back(Knight(whiteSide, 1, 0));
 		pieces.push_back(Knight(whiteSide, 6, 0));
 
@@ -32,10 +32,16 @@ Player::Player(bool isWhite)
 		pieces.push_back(Queen(whiteSide, 3, 0));
 		
 		pieces.push_back(King(whiteSide, 4, 0));
+
+		for (int i = 0; i < 8; i++)
+		{
+			pieces.push_back(Pawn(whiteSide, i, pawnPosY));
+			pawnPosY++;
+		}
 	}	
 	else
 	{
-		pawnPosY = 7;
+		pawnPosY = 6;
 		pieces.push_back(Knight(whiteSide, 1, 7));
 		pieces.push_back(Knight(whiteSide, 6, 7));
 
@@ -48,13 +54,12 @@ Player::Player(bool isWhite)
 		pieces.push_back(Queen(whiteSide, 3, 7));
 
 		pieces.push_back(King(whiteSide, 4, 7));
-	}
-			
-	//pawns
-	for (int i = 0; i < 8; i++)
-	{
-		pieces.push_back(Pawn(whiteSide, i, pawnPosY));
-		pawnPosY++;
+
+		for (int i = 0; i < 8; i++)
+		{
+			pieces.push_back(Pawn(whiteSide, i, pawnPosY));
+			pawnPosY--;
+		}
 	}
 }
 
