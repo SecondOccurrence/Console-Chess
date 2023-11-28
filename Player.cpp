@@ -19,7 +19,7 @@ Player::Player(bool isWhite)
 	//back pieces
 	if (whiteSide == true)
 	{
-		pawnPosY = 0;
+		pawnPosY = 1;
 		pieces.push_back(Knight(whiteSide, 1, 0));
 		pieces.push_back(Knight(whiteSide, 6, 0));
 
@@ -36,7 +36,6 @@ Player::Player(bool isWhite)
 		for (int i = 0; i < 8; i++)
 		{
 			pieces.push_back(Pawn(whiteSide, i, pawnPosY));
-			pawnPosY++;
 		}
 	}	
 	else
@@ -58,7 +57,6 @@ Player::Player(bool isWhite)
 		for (int i = 0; i < 8; i++)
 		{
 			pieces.push_back(Pawn(whiteSide, i, pawnPosY));
-			pawnPosY--;
 		}
 	}
 }
@@ -122,7 +120,6 @@ std::vector<PieceInfo> Player::getPiecePositions()
 	std::vector<PieceInfo> piecePosArr;
 
 	int pieceAmount = pieces.size();
-	std::cout << "SIZE: " << pieceAmount << std::endl;
 	for (int i = 0; i < pieceAmount; i++)
 	{
 		piecePosArr.push_back(pieces[i].getPieceInfo());
