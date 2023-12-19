@@ -3,7 +3,7 @@
 
 Board::Board()
 {
-	std::vector<std::vector<int>> arr(8, std::vector<int>(8, 6));
+	std::vector<std::vector<int>> arr(8, std::vector<int>(8, 12));
 	boardCells = arr;
 }
 
