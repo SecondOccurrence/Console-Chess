@@ -4,5 +4,5 @@
 class Rook : public Piece
 {
 public:
-	Rook(bool val, int posX, int posY);
+	Rook(boardSide val, int posX, int posY);
 };

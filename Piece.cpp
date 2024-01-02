@@ -4,7 +4,7 @@
 
 Piece::Piece()
 {
-	info.side = true; //white
+	info.side = WHITE;
 	info.piece = w_PAWN;
 	info.posX = 0;
 	info.posY = 0;

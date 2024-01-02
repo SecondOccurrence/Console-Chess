@@ -1,12 +1,12 @@
 #include "Knight.h"
 
-Knight::Knight(bool val, int posX, int posY)
+Knight::Knight(boardSide val, int posX, int posY)
 {
-	info.side = val; //assigns t/f. t=white, f=black
+	info.side = val;
 	info.posX = posX;
 	info.posY = posY;
 
-	if(val) // white side
+	if(val == WHITE)
 	{
 		info.piece = w_KNIGHT;
 	}

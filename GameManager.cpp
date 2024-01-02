@@ -4,8 +4,9 @@
 
 GameManager::GameManager()
 {
-	whiteSide = Player(true);
-	blackSide = Player(false);
+	whiteSide = Player(WHITE);
+	blackSide = Player(BLACK);
+	sideToMove = WHITE;
 }
 
 void GameManager::displayBoard()
@@ -48,8 +49,15 @@ bool GameManager::run()
 
 	displayBoard();
 
-	move = whiteSide.getMove();
-
+	//std::cout << sideToMove << std::endl;
+	if(sideToMove == WHITE)
+	{
+		move = whiteSide.performMove();
+	}
+	else
+	{
+		move = blackSide.performMove();
+	}
 
 	//move pieces, return value
 		//checkmate, clear for next move

@@ -4,5 +4,5 @@
 class King : public Piece
 {
 public:
-	King(bool val, int posX, int posY);
+	King(boardSide val, int posX, int posY);
 };

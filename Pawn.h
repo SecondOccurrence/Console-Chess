@@ -4,5 +4,5 @@
 class Pawn : public Piece
 {
 public:
-	Pawn(bool side, int posX, int posY);
+	Pawn(boardSide side, int posX, int posY);
 };

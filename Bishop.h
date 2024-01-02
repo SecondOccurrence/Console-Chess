@@ -4,5 +4,5 @@
 class Bishop : public Piece
 {
 public:
-	Bishop(bool val, int posX, int posY);
+	Bishop(boardSide val, int posX, int posY);
 };

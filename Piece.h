@@ -12,3 +12,8 @@ public:
 protected:
 	PieceInfo info;
 };
+
+// TODO:
+//
+// change piece w_... b_... to just ... as every piece object has a side attribute.
+// can compare using PieceInfo.side

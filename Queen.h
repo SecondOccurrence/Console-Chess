@@ -4,5 +4,5 @@
 class Queen : public Piece
 {
 public:
-	Queen(bool val, int posX, int posY);
+	Queen(boardSide val, int posX, int posY);
 };
