@@ -14,12 +14,12 @@ void Board::updateBoard(std::vector<PieceInfo>& piecesA, std::vector<PieceInfo>&
 	int SIZE = piecesA.size(); //piecesB size is the same as piecesA
 	for (int i = 0; i < SIZE; i++)
 	{
-		xCoord = piecesA[i].posX;
-		yCoord = piecesA[i].posY;
+		xCoord = piecesA[i].coords.x;
+		yCoord = piecesA[i].coords.y;
 		boardCells[yCoord][xCoord] = piecesA[i].piece;
 
-		xCoord = piecesB[i].posX;
-		yCoord = piecesB[i].posY;
+		xCoord = piecesB[i].coords.x;
+		yCoord = piecesB[i].coords.y;
 		boardCells[yCoord][xCoord] = piecesB[i].piece;
 	}
 }

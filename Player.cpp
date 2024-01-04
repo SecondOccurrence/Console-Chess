@@ -6,6 +6,8 @@
 #include "Queen.h"
 #include "King.h"
 
+#include "Coordinate.h"
+
 Player::Player()
 {
 	playerSide = WHITE;
@@ -96,16 +98,15 @@ bool Player::validateMove(std::string playerMove)
 		return false;
 
 	bool valid = true;
-	int xcoord;
-	int ycoord;
+	coordinate coord;
 
 	// check if move is on board
 	for (int i = 0; i < 4; i += 2) 
 	{
-		xcoord = (int)playerMove[i] - 96; // converts char to its position on the board grid (1-8)
-		ycoord = (int)playerMove[i + 1] - 48; // convert char number to ascii number equivalent
+		coord.x = (int)playerMove[i] - 96; // converts char to its position on the board grid (1-8)
+		coord.y = (int)playerMove[i + 1] - 48; // convert char number to ascii number equivalent
 
-		if ((xcoord > 8 || xcoord < 1) || (ycoord > 8 || ycoord < 1))
+		if ((coord.x > 8 || coord.x < 1) || (coord.y > 8 || coord.y < 1))
 		{
 			valid = false;
 			break;
@@ -114,8 +115,8 @@ bool Player::validateMove(std::string playerMove)
 
 	// check if move is being performed on one of player's pieces
 	bool isPlayerPiece = true;
-	xcoord = (int)playerMove[0] - 96;
-	ycoord = (int)playerMove[1] - 48;
+	coord.x = (int)playerMove[0] - 96;
+	coord.y = (int)playerMove[1] - 48;
 	//if()
 
 
@@ -143,13 +144,12 @@ PieceInfo Player::getPieceAtPos(std::string move)
 	PieceInfo foundPiece;
 
 	// convert initial position to integer coordinates
-	int xCoord = move[0] - 64;
-	int yCoord = (int)move[1];
+	coordinate coord = {move[0] - 64, (int)move[1]};
 
 	int piecesSize = piecePosArr.size();
 	for(int i=0; i<piecesSize; i++)
 	{
-		if(piecePosArr[i].posX == xCoord && piecePosArr[i].posY == yCoord)
+		if(piecePosArr[i].coords.x == coord.x && piecePosArr[i].coords.y == coord.y)
 		{
 			foundPiece = piecePosArr[i];
 		}

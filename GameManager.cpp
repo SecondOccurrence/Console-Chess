@@ -13,11 +13,6 @@ void GameManager::displayBoard()
 {
 	const char pieces[13] = {'p', 'n', 'b', 'r', 'q', 'k', 'P', 'N', 'B', 'R', 'Q', 'K', '.'};
 
-	std::vector<PieceInfo> whitePieces = whiteSide.getPiecePositions();
-	std::vector<PieceInfo> blackPieces = blackSide.getPiecePositions();
-
-	board.updateBoard(whitePieces, blackPieces);
-
 	int yAxis = 8;
 	std::cout << std::endl; //formatting
 	std::cout << "           BLACK       " << std::endl;
@@ -47,16 +42,22 @@ bool GameManager::run()
 	bool gameEnded = false;
 	std::string move;
 
+	std::vector<PieceInfo> whitePieces = whiteSide.getPiecePositions();
+	std::vector<PieceInfo> blackPieces = blackSide.getPiecePositions();
+
+	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();
 
 	//std::cout << sideToMove << std::endl;
 	if(sideToMove == WHITE)
 	{
 		move = whiteSide.performMove();
+		sideToMove = BLACK;
 	}
 	else
 	{
 		move = blackSide.performMove();
+		sideToMove = WHITE;
 	}
 
 	//move pieces, return value
