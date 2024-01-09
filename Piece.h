@@ -7,6 +7,8 @@ public:
 	Piece();
 	int getX() const;
 	int getY() const;
+	void setX(int x);
+	void setY(int y);
 	PieceInfo getPieceInfo();
 
 protected:

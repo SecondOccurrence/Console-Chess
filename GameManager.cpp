@@ -15,20 +15,23 @@ void GameManager::displayBoard()
 
 	int yAxis = 8;
 	std::cout << std::endl; //formatting
+	
 	std::cout << "           BLACK       " << std::endl;
 	std::cout << "    +-----------------+" << std::endl;
 	for (int i = 7; i >= 0; i--)
 	{
-		std::cout << "  " << yAxis << " "; //print out y-axis grid number
+		std::cout << "  " << yAxis << " "; // print out y-axis grid number
 		yAxis--;
-		for (int j = 9; j >= 0; j--)
+
+		int boardColumns = 9;		
+		for(int j = 0; j <= boardColumns; j++)
 		{
-			if (j == 0 || j == 9)
+			if(j == 0 || j == boardColumns)
 			{
 				std::cout << "| ";
 				continue;
 			}
-			std::cout << pieces[board.getPieceAtPos(j - 1, i)] << " "; //print out board position
+			std::cout << pieces[board.getPieceAtPos(j - 1, i)] << " ";
 		}
 		std::cout << std::endl;
 	}

@@ -21,42 +21,42 @@ Player::Player(boardSide chosenSide)
 	//back pieces
 	if (playerSide == WHITE)
 	{
-		pawnPosY = 1;
-		pieces.push_back(Knight(chosenSide, 1, 0));
-		pieces.push_back(Knight(chosenSide, 6, 0));
+		pawnPosY = 2;
+		pieces.push_back(Knight(chosenSide, 2, 1));
+		pieces.push_back(Knight(chosenSide, 7, 1));
 
-		pieces.push_back(Bishop(chosenSide, 2, 0));
-		pieces.push_back(Bishop(chosenSide, 5, 0));
+		pieces.push_back(Bishop(chosenSide, 3, 1));
+		pieces.push_back(Bishop(chosenSide, 6, 1));
 
-		pieces.push_back(Rook(chosenSide, 0, 0));
-		pieces.push_back(Rook(chosenSide, 7, 0));
+		pieces.push_back(Rook(chosenSide, 1, 1));
+		pieces.push_back(Rook(chosenSide, 8, 1));
 
-		pieces.push_back(Queen(chosenSide, 3, 0));
+		pieces.push_back(Queen(chosenSide, 4, 1));
 		
-		pieces.push_back(King(chosenSide, 4, 0));
+		pieces.push_back(King(chosenSide, 5, 1));
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 1; i < 9; i++)
 		{
 			pieces.push_back(Pawn(chosenSide, i, pawnPosY));
 		}
 	}	
 	else
 	{
-		pawnPosY = 6;
-		pieces.push_back(Knight(chosenSide, 1, 7));
-		pieces.push_back(Knight(chosenSide, 6, 7));
+		pawnPosY = 7;
+		pieces.push_back(Knight(chosenSide, 2, 8));
+		pieces.push_back(Knight(chosenSide, 7, 8));
 
-		pieces.push_back(Bishop(chosenSide, 2, 7));
-		pieces.push_back(Bishop(chosenSide, 5, 7));
+		pieces.push_back(Bishop(chosenSide, 3, 8));
+		pieces.push_back(Bishop(chosenSide, 6, 8));
 
-		pieces.push_back(Rook(chosenSide, 0, 7));
-		pieces.push_back(Rook(chosenSide, 7, 7));
+		pieces.push_back(Rook(chosenSide, 1, 8));
+		pieces.push_back(Rook(chosenSide, 8, 8));
 
-		pieces.push_back(Queen(chosenSide, 3, 7));
+		pieces.push_back(Queen(chosenSide, 4, 8));
 
-		pieces.push_back(King(chosenSide, 4, 7));
+		pieces.push_back(King(chosenSide, 5, 8));
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 1; i < 9; i++)
 		{
 			pieces.push_back(Pawn(chosenSide, i, pawnPosY));
 		}
@@ -64,6 +64,41 @@ Player::Player(boardSide chosenSide)
 }
 
 std::string Player::performMove()
+{
+	std::string move = getMove();
+
+	coordinate initialCoords;
+	initialCoords.x = (int)move[0] - 96; // converts char to its position on the board grid (1-8)
+	initialCoords.y = (int)move[1] - 48; // convert char number to ascii number equivalent
+	
+	coordinate moveCoords;
+	moveCoords.x = (int)move[2] - 96;
+	moveCoords.y = (int)move[3] - 48;
+
+	bool test = false;
+
+	int SIZE = pieces.size();
+	std::cout << SIZE << std::endl;
+	for(int i = 0; i < SIZE; i++)
+	{
+		if(pieces[i].getX() == initialCoords.x && pieces[i].getY() == initialCoords.y)
+		{
+			//change its position
+			pieces[i].setX(moveCoords.x);
+			pieces[i].setY(moveCoords.y);
+			test = true;
+		}
+	}
+
+	if(!test)
+	{
+		std::cout << "nothing found" << std::endl;
+	}
+
+	return move;
+}
+
+std::string Player::getMove()
 {
 	std::string move;
 
@@ -85,9 +120,6 @@ std::string Player::performMove()
 		if (!validMove)
 			std::cout << "Invalid move. Try again." << std::endl;
 	}
-	
-	// get the piece at the chosen position
-	
 
 	return move;
 }

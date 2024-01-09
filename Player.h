@@ -21,4 +21,6 @@ public:
 private:
 	boardSide playerSide;
 	std::vector<Piece> pieces;
+
+	std::string getMove();
 };

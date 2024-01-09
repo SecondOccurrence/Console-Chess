@@ -16,4 +16,6 @@ public:
 private:
 	const int xySize = 8;
 	std::vector<std::vector<int>> boardCells;
+
+	void resetBoard();
 };

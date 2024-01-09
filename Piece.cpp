@@ -20,6 +20,16 @@ int Piece::getY() const
 	return info.coords.y;
 }
 
+void Piece::setX(int x)
+{
+	info.coords.x = x;
+}
+
+void Piece::setY(int y)
+{
+	info.coords.y = y;
+}
+
 PieceInfo Piece::getPieceInfo()
 {
 	return info;
