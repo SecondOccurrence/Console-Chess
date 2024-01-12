@@ -15,3 +15,9 @@ Knight::Knight(boardSide val, int posX, int posY)
 		info.piece = b_KNIGHT;
 	}
 }
+
+bool Knight::validateMove(coordinate oldCoords, coordinate newCoords)
+{
+	std::cout << "knight" << std::endl;
+	return false;
+}

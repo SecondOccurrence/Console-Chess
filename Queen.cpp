@@ -15,3 +15,9 @@ Queen::Queen(boardSide val, int posX, int posY)
 		info.piece = b_QUEEN;
 	}
 }
+
+bool Queen::validateMove(coordinate oldCoords, coordinate newCoords)
+{
+	std::cout << "queen" << std::endl;
+	return false;
+}

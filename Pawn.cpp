@@ -15,3 +15,9 @@ Pawn::Pawn(boardSide val, int posX, int posY)
 		info.piece = b_PAWN;
 	}
 }
+
+bool Pawn::validateMove(coordinate oldCoord, coordinate newCoord)
+{
+	std::cout << "pawn" << std::endl;
+	return true;
+}

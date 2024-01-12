@@ -1,5 +1,8 @@
 #pragma once
+#include "iostream"
+
 #include "PieceInfo.h"
+#include "Coordinate.h"
 
 class Piece
 {
@@ -10,6 +13,8 @@ public:
 	void setX(int x);
 	void setY(int y);
 	PieceInfo getPieceInfo();
+
+	virtual bool validateMove(coordinate oldCoord, coordinate newCoord);
 
 protected:
 	PieceInfo info;

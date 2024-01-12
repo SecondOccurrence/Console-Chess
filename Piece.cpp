@@ -34,3 +34,10 @@ PieceInfo Piece::getPieceInfo()
 {
 	return info;
 }
+
+bool Piece::validateMove(coordinate oldCoord, coordinate newCoord)
+{
+	std::cout << "regular piece" << std::endl;
+	return true;
+}
+

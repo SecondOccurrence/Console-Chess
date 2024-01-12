@@ -15,3 +15,9 @@ King::King(boardSide val, int posX, int posY)
 		info.piece = b_KING;
 	}
 }
+
+bool King::validateMove(coordinate oldCoords, coordinate newCoords)
+{
+	std::cout << "king" << std::endl;
+	return false;
+}

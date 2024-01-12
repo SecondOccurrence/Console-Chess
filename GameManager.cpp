@@ -51,7 +51,6 @@ bool GameManager::run()
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();
 
-	//std::cout << sideToMove << std::endl;
 	if(sideToMove == WHITE)
 	{
 		move = whiteSide.getMove();

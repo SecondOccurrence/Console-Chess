@@ -22,44 +22,49 @@ Player::Player(boardSide chosenSide)
 	if (playerSide == WHITE)
 	{
 		pawnPosY = 2;
-		pieces.push_back(Knight(chosenSide, 2, 1));
-		pieces.push_back(Knight(chosenSide, 7, 1));
+		pieces.push_back(new Knight(chosenSide, 2, 1));
+		pieces.push_back(new Knight(chosenSide, 7, 1));
 
-		pieces.push_back(Bishop(chosenSide, 3, 1));
-		pieces.push_back(Bishop(chosenSide, 6, 1));
+		pieces.push_back(new Bishop(chosenSide, 3, 1));
+		pieces.push_back(new Bishop(chosenSide, 6, 1));
 
-		pieces.push_back(Rook(chosenSide, 1, 1));
-		pieces.push_back(Rook(chosenSide, 8, 1));
+		pieces.push_back(new Rook(chosenSide, 1, 1));
+		pieces.push_back(new Rook(chosenSide, 8, 1));
 
-		pieces.push_back(Queen(chosenSide, 4, 1));
+		pieces.push_back(new Queen(chosenSide, 4, 1));
 		
-		pieces.push_back(King(chosenSide, 5, 1));
+		pieces.push_back(new King(chosenSide, 5, 1));
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces.push_back(Pawn(chosenSide, i, pawnPosY));
+			pieces.push_back(new Pawn(chosenSide, i, pawnPosY));
 		}
 	}	
 	else
 	{
 		pawnPosY = 7;
-		pieces.push_back(Knight(chosenSide, 2, 8));
-		pieces.push_back(Knight(chosenSide, 7, 8));
+		pieces.push_back(new Knight(chosenSide, 2, 8));
+		pieces.push_back(new Knight(chosenSide, 7, 8));
 
-		pieces.push_back(Bishop(chosenSide, 3, 8));
-		pieces.push_back(Bishop(chosenSide, 6, 8));
+		pieces.push_back(new Bishop(chosenSide, 3, 8));
+		pieces.push_back(new Bishop(chosenSide, 6, 8));
 
-		pieces.push_back(Rook(chosenSide, 1, 8));
-		pieces.push_back(Rook(chosenSide, 8, 8));
+		pieces.push_back(new Rook(chosenSide, 1, 8));
+		pieces.push_back(new Rook(chosenSide, 8, 8));
 
-		pieces.push_back(Queen(chosenSide, 4, 8));
+		pieces.push_back(new Queen(chosenSide, 4, 8));
 
-		pieces.push_back(King(chosenSide, 5, 8));
+		pieces.push_back(new King(chosenSide, 5, 8));
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces.push_back(Pawn(chosenSide, i, pawnPosY));
+			pieces.push_back(new Pawn(chosenSide, i, pawnPosY));
 		}
+	}
+	int SIZE = pieces.size();
+	for(int i=0; i<SIZE; i++)
+	{
+		pieces[i]->validateMove(coordinate(), coordinate());
 	}
 }
 
@@ -87,11 +92,6 @@ std::string Player::getMove()
 	}
 
 	return move;
-}
-
-int Player::getPieceSize()
-{
-	return pieces.size();
 }
 
 bool Player::validateMove(std::string playerMove)
@@ -126,6 +126,9 @@ bool Player::validateMove(std::string playerMove)
 		valid = false;
 	}
 
+	// TODO: call validate function for each piece e.g. if move is on pawn...
+	// 	call pawn->validateMove() which says the piece can only move up 1 on the board or 2 on start
+
 	return valid;
 }
 
@@ -136,10 +139,7 @@ std::vector<PieceInfo> Player::getPiecePositions()
 	int pieceAmount = pieces.size();
 	for (int i = 0; i < pieceAmount; i++)
 	{
-		// TODO: rather than have PieceInfo, change to ONLY x and y values
-		// 	through Piece::getX(), Piece::getY()
-		// 	nothing except the Piece class should have access to PieceInfo.
-		piecePosArr.push_back(pieces[i].getPieceInfo());
+		piecePosArr.push_back(pieces[i]->getPieceInfo());
 	}
 	return piecePosArr;
 }
@@ -149,10 +149,10 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	int SIZE = pieces.size();
 	for(int i = 0; i < SIZE; i++)
 	{
-		if(pieces[i].getX() == oldCoords.x && pieces[i].getY() == oldCoords.y)
+		if(pieces[i]->getX() == oldCoords.x && pieces[i]->getY() == oldCoords.y)
 		{
-			pieces[i].setX(newCoords.x);
-			pieces[i].setY(newCoords.y);
+			pieces[i]->setX(newCoords.x);
+			pieces[i]->setY(newCoords.y);
 			break;
 		}
 	}
@@ -165,7 +165,7 @@ bool Player::findCoordMatch(coordinate coord)
 	int SIZE = pieces.size();
 	for(int i = 0; i < SIZE; i++)
 	{
-		if(pieces[i].getX() == coord.x && pieces[i].getY() == coord.y)
+		if(pieces[i]->getX() == coord.x && pieces[i]->getY() == coord.y)
 		{
 			found = true;
 			break;
