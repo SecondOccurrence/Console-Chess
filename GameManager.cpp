@@ -1,6 +1,9 @@
 #include "GameManager.h"
 
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 GameManager::GameManager()
 {
@@ -68,6 +71,67 @@ bool GameManager::run()
 		//checkmate, clear for next move
 	
 	return gameEnded;
+}
+
+// TODO: clear piece array first
+//   refactor
+
+void GameManager::readFENBoard()
+{
+	std::string FENString = getFENString();
+	std::stringstream FENStringstream;
+	std::string row;
+
+	std::cout << FENString << std::endl;
+
+	//start 1,8 -> 8,1
+	int xCoord = 1;
+	int yCoord = 8;
+
+	int rowSize;
+	FENStringstream << FENString;
+	while(std::getline(FENStringstream, row, '/'))
+	{
+		rowSize = row.length();
+		int blankCells;
+		for(int i = 0; i < rowSize; i++)
+		{
+			blankCells = std::atoi(&row[i]);
+			if(blankCells == 0) // there is a piece on this cell
+			{
+				if(row[i] >= 'A' && row[i] <= 'Z') // is a capital letter -> white piece
+				{
+					// switch case piece -> object -> push back(new Pawn(white, x, y)
+				}
+				else
+				{
+					// switch case piece -> object -> push back(new Pawn(black, x, y)
+				}
+				xCoord += 1;
+			}
+			else
+			{
+				xCoord += blankCells - 1;
+			}
+		}
+		yCoord += 1;
+	}
+}
+
+std::string GameManager::getFENString()
+{
+	std::string fileName;
+	std::fstream FENFile;
+	std::stringstream fileContents;
+
+	std::cout << "Enter the text file name (excluding .txt) containing the FEN string: ";
+	std::cin >> fileName;
+
+	FENFile.open("Test-Boards/" + fileName + ".txt", std::fstream::in);
+	fileContents << FENFile.rdbuf();
+	FENFile.close();
+
+	return fileContents.str();
 }
 
 void GameManager::performMove(boardSide moveSide, std::string move)
