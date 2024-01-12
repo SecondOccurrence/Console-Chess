@@ -63,41 +63,6 @@ Player::Player(boardSide chosenSide)
 	}
 }
 
-std::string Player::performMove()
-{
-	std::string move = getMove();
-
-	coordinate initialCoords;
-	initialCoords.x = (int)move[0] - 96; // converts char to its position on the board grid (1-8)
-	initialCoords.y = (int)move[1] - 48; // convert char number to ascii number equivalent
-	
-	coordinate moveCoords;
-	moveCoords.x = (int)move[2] - 96;
-	moveCoords.y = (int)move[3] - 48;
-
-	bool test = false;
-
-	int SIZE = pieces.size();
-	std::cout << SIZE << std::endl;
-	for(int i = 0; i < SIZE; i++)
-	{
-		if(pieces[i].getX() == initialCoords.x && pieces[i].getY() == initialCoords.y)
-		{
-			//change its position
-			pieces[i].setX(moveCoords.x);
-			pieces[i].setY(moveCoords.y);
-			test = true;
-		}
-	}
-
-	if(!test)
-	{
-		std::cout << "nothing found" << std::endl;
-	}
-
-	return move;
-}
-
 std::string Player::getMove()
 {
 	std::string move;
@@ -124,6 +89,11 @@ std::string Player::getMove()
 	return move;
 }
 
+int Player::getPieceSize()
+{
+	return pieces.size();
+}
+
 bool Player::validateMove(std::string playerMove)
 {
 	if (playerMove.length() != 4)
@@ -146,11 +116,15 @@ bool Player::validateMove(std::string playerMove)
 	}
 
 	// check if move is being performed on one of player's pieces
-	bool isPlayerPiece = true;
 	coord.x = (int)playerMove[0] - 96;
 	coord.y = (int)playerMove[1] - 48;
-	//if()
 
+	bool isPlayerPiece = findCoordMatch(coord);
+
+	if(!isPlayerPiece)
+	{
+		valid = false;
+	}
 
 	return valid;
 }
@@ -170,22 +144,33 @@ std::vector<PieceInfo> Player::getPiecePositions()
 	return piecePosArr;
 }
 
-PieceInfo Player::getPieceAtPos(std::string move)
+void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 {
-	std::vector<PieceInfo> piecePosArr = getPiecePositions();
-	PieceInfo foundPiece;
-
-	// convert initial position to integer coordinates
-	coordinate coord = {move[0] - 64, (int)move[1]};
-
-	int piecesSize = piecePosArr.size();
-	for(int i=0; i<piecesSize; i++)
+	int SIZE = pieces.size();
+	for(int i = 0; i < SIZE; i++)
 	{
-		if(piecePosArr[i].coords.x == coord.x && piecePosArr[i].coords.y == coord.y)
+		if(pieces[i].getX() == oldCoords.x && pieces[i].getY() == oldCoords.y)
 		{
-			foundPiece = piecePosArr[i];
+			pieces[i].setX(newCoords.x);
+			pieces[i].setY(newCoords.y);
+			break;
+		}
+	}
+}
+
+bool Player::findCoordMatch(coordinate coord)
+{
+	bool found = false;
+
+	int SIZE = pieces.size();
+	for(int i = 0; i < SIZE; i++)
+	{
+		if(pieces[i].getX() == coord.x && pieces[i].getY() == coord.y)
+		{
+			found = true;
+			break;
 		}
 	}
 
-	
+	return found;
 }

@@ -16,4 +16,6 @@ private:
 	boardSide sideToMove;
 	Player whiteSide;
 	Player blackSide;
+
+	void performMove(boardSide moveSide, std::string move);
 };

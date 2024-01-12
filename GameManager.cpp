@@ -54,12 +54,14 @@ bool GameManager::run()
 	//std::cout << sideToMove << std::endl;
 	if(sideToMove == WHITE)
 	{
-		move = whiteSide.performMove();
+		move = whiteSide.getMove();
+		performMove(sideToMove, move);
 		sideToMove = BLACK;
 	}
 	else
 	{
-		move = blackSide.performMove();
+		move = blackSide.getMove();
+		performMove(sideToMove, move);
 		sideToMove = WHITE;
 	}
 
@@ -67,4 +69,24 @@ bool GameManager::run()
 		//checkmate, clear for next move
 	
 	return gameEnded;
+}
+
+void GameManager::performMove(boardSide moveSide, std::string move)
+{
+	coordinate initialCoords;
+	initialCoords.x = (int)move[0] - 96; // converts char to its position on the board grid (1-8)
+	initialCoords.y = (int)move[1] - 48; // convert char number to ascii number equivalent
+	
+	coordinate moveCoords;
+	moveCoords.x = (int)move[2] - 96;
+	moveCoords.y = (int)move[3] - 48;
+
+	if(moveSide == WHITE)
+	{
+		whiteSide.assignNewPosition(initialCoords, moveCoords);
+	}
+	else
+	{
+		blackSide.assignNewPosition(initialCoords, moveCoords);
+	}
 }

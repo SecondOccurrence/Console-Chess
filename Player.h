@@ -13,14 +13,16 @@ public:
 	Player();
 	Player(boardSide chosenSide);
 
-	std::string performMove();
+	std::string getMove();
+	int getPieceSize();
 	bool validateMove(std::string playerMove);
 	std::vector<PieceInfo> getPiecePositions();
-	PieceInfo getPieceAtPos(std::string move);
+
+	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
 private:
 	boardSide playerSide;
 	std::vector<Piece> pieces;
 
-	std::string getMove();
+	bool findCoordMatch(coordinate coord);
 };
