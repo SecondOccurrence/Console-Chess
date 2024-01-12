@@ -20,7 +20,7 @@ public:
 
 private:
 	boardSide playerSide;
-	std::vector<Piece *> pieces;
+	std::vector<Piece*> pieces;
 
-	bool findCoordMatch(coordinate coord);
+	bool findCoordMatch(coordinate coord, int* index);
 };

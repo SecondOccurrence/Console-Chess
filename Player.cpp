@@ -116,14 +116,19 @@ bool Player::validateMove(std::string playerMove)
 	}
 
 	// check if move is being performed on one of player's pieces
-	coord.x = (int)playerMove[0] - 96;
-	coord.y = (int)playerMove[1] - 48;
+	coordinate originalCoord{(int)playerMove[0] - 96, (int)playerMove[1] - 48};
+	coordinate targetCoord{(int)playerMove[2] - 96, (int)playerMove[3] - 48};
 
-	bool isPlayerPiece = findCoordMatch(coord);
+	int foundPieceIndex = 0;
+	bool isPlayerPiece = findCoordMatch(originalCoord, &foundPieceIndex);
 
 	if(!isPlayerPiece)
 	{
 		valid = false;
+	}
+	else	
+	{
+		valid = pieces[foundPieceIndex]->validateMove(originalCoord, targetCoord);
 	}
 
 	// TODO: call validate function for each piece e.g. if move is on pawn...
@@ -158,7 +163,7 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	}
 }
 
-bool Player::findCoordMatch(coordinate coord)
+bool Player::findCoordMatch(coordinate coord, int* index)
 {
 	bool found = false;
 
@@ -168,6 +173,7 @@ bool Player::findCoordMatch(coordinate coord)
 		if(pieces[i]->getX() == coord.x && pieces[i]->getY() == coord.y)
 		{
 			found = true;
+			*index = i;
 			break;
 		}
 	}
