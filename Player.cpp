@@ -176,6 +176,8 @@ bool Player::validateMove(std::string playerMove)
 		// call the validate move function for the specific piece behaviour
 		//   e.g. check if pawn move is valid
 		
+		generatePossibleMoves(foundPieceIndex, originalCoord);
+		
 		valid = pieces[foundPieceIndex]->validateMove(originalCoord, targetCoord);
 	}
 
@@ -203,7 +205,7 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 		{
 			pieces[i]->setX(newCoords.x);
 			pieces[i]->setY(newCoords.y);
-			break;
+		break;
 		}
 	}
 }
@@ -229,4 +231,10 @@ bool Player::findCoordMatch(coordinate coord, int* index)
 void Player::generatePossibleMoves(int pieceIndex, coordinate startingCoord)
 {
 	possibleMoves = pieces[pieceIndex]->fetchMoves(startingCoord);
+
+	int SIZE = possibleMoves.size();
+	for(int i = 0; i < SIZE; i++)
+	{
+		std::cout << possibleMoves[i].x << " " << possibleMoves[i].y << std::endl;
+	}
 }

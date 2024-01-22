@@ -18,7 +18,38 @@ Pawn::Pawn(boardSide val, int posX, int posY)
 
 std::vector<coordinate> Pawn::fetchMoves(coordinate startingPos)
 {
-	return std::vector<coordinate>{};
+	std::vector<coordinate> coordinates;
+
+	int increment;
+	if(info.side == WHITE)
+	{
+		increment = 1; // moving up the board
+	}
+	else
+	{
+		increment = -1; // moving down the board
+	}
+
+	if(startingPos.y <= 7)
+	{
+		coordinates.push_back(coordinate{startingPos.x, startingPos.y + increment});
+
+		// capture moves
+		if(startingPos.x >= 2)
+		{
+			coordinates.push_back(coordinate{startingPos.x - 1, startingPos.y + increment});
+		}
+		if(startingPos.x <= 7)
+		{
+			coordinates.push_back(coordinate{startingPos.x + 1, startingPos.y + increment});
+		}
+	}
+	if(startingPos.y <= 6)
+	{
+		coordinates.push_back(coordinate{startingPos.x, startingPos.y + (increment + increment)});
+	}
+	
+	return coordinates;
 }
 
 bool Pawn::validateMove(coordinate oldCoord, coordinate newCoord)
