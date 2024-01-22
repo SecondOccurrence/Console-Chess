@@ -12,37 +12,6 @@ GameManager::GameManager()
 	sideToMove = WHITE;
 }
 
-void GameManager::displayBoard()
-{
-	const char pieces[13] = {'p', 'n', 'b', 'r', 'q', 'k', 'P', 'N', 'B', 'R', 'Q', 'K', '.'};
-
-	int yAxis = 8;
-	std::cout << std::endl; //formatting
-	
-	std::cout << "           BLACK       " << std::endl;
-	std::cout << "    +-----------------+" << std::endl;
-	for (int i = 7; i >= 0; i--)
-	{
-		std::cout << "  " << yAxis << " "; // print out y-axis grid number
-		yAxis--;
-
-		int boardColumns = 9;		
-		for(int j = 0; j <= boardColumns; j++)
-		{
-			if(j == 0 || j == boardColumns)
-			{
-				std::cout << "| ";
-				continue;
-			}
-			std::cout << pieces[board.getPieceAtPos(j - 1, i)] << " ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << "    +-----------------+" << std::endl;
-	std::cout << "      a b c d e f g h" << std::endl;
-	std::cout << "           WHITE      " << std::endl;
-}
-
 bool GameManager::run()
 {
 	bool gameEnded = false;
@@ -72,19 +41,48 @@ bool GameManager::run()
 	
 	return gameEnded;
 }
+void GameManager::displayBoard()
+{
+	int yAxis = 8;
+	std::cout << std::endl; //formatting
+	
+	std::cout << "           BLACK       " << std::endl;
+	std::cout << "    +-----------------+" << std::endl;
+	for (int i = 7; i >= 0; i--)
+	{
+		std::cout << "  " << yAxis << " "; // print out y-axis grid number
+		yAxis--;
 
-// TODO: clear piece array first
-//   refactor
+		int boardColumns = 9;		
+		for(int j = 0; j <= boardColumns; j++)
+		{
+			if(j == 0 || j == boardColumns)
+			{
+				std::cout << "| ";
+				continue;
+			}
+			std::cout << pieces[board.getPieceAtPos(j - 1, i)] << " ";
+		}
+		std::cout << std::endl;
+	}
+	std::cout << "    +-----------------+" << std::endl;
+	std::cout << "      a b c d e f g h" << std::endl;
+	std::cout << "           WHITE      " << std::endl;
+}
+
 
 void GameManager::readFENBoard()
 {
+	// remove all existing pieces from the board
+	board.resetBoard();
+	whiteSide.clearPieces();
+	blackSide.clearPieces();
+
 	std::string FENString = getFENString();
 	std::stringstream FENStringstream;
 	std::string row;
 
-	std::cout << FENString << std::endl;
-
-	//start 1,8 -> 8,1
+	//start 1,1 -> end 8,8
 	int xCoord = 1;
 	int yCoord = 8;
 
@@ -95,26 +93,33 @@ void GameManager::readFENBoard()
 		rowSize = row.length();
 		int blankCells;
 		for(int i = 0; i < rowSize; i++)
-		{
+		{ 
 			blankCells = std::atoi(&row[i]);
 			if(blankCells == 0) // there is a piece on this cell
 			{
 				if(row[i] >= 'A' && row[i] <= 'Z') // is a capital letter -> white piece
 				{
+					whiteSide.importPiece(row[i], WHITE, xCoord, yCoord);
 					// switch case piece -> object -> push back(new Pawn(white, x, y)
 				}
-				else
+				else if(row[i] >= 'a' && row[i] <= 'z')
 				{
+					blackSide.importPiece(row[i], BLACK, xCoord, yCoord);
 					// switch case piece -> object -> push back(new Pawn(black, x, y)
 				}
 				xCoord += 1;
 			}
 			else
 			{
-				xCoord += blankCells - 1;
+				xCoord += blankCells;
+			}
+
+			if(xCoord > 8)
+			{
+				xCoord = 1; // end of row. start next row
 			}
 		}
-		yCoord += 1;
+		yCoord -= 1;
 	}
 }
 

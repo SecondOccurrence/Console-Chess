@@ -37,7 +37,6 @@ PieceInfo Piece::getPieceInfo()
 
 bool Piece::validateMove(coordinate oldCoord, coordinate newCoord)
 {
-	std::cout << "regular piece" << std::endl;
 	return true;
 }
 

@@ -18,6 +18,5 @@ Bishop::Bishop(boardSide val, int posX, int posY)
 
 bool Bishop::validateMove(coordinate oldCoords, coordinate newCoords)
 {
-	std::cout << "bishop" << std::endl;
 	return false;
 }

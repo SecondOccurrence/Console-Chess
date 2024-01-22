@@ -13,6 +13,9 @@ public:
 	Player();
 	Player(boardSide chosenSide);
 
+	void clearPieces(); // used for importing a game
+	void importPiece(char piece, boardSide side, int x, int y);
+
 	std::string getMove();
 	bool validateMove(std::string playerMove);
 	std::vector<PieceInfo> getPiecePositions();

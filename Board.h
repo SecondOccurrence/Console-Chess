@@ -12,10 +12,10 @@ public:
 	void updateBoard(std::vector<PieceInfo> &piecesA, std::vector<PieceInfo> &piecesB);
 	const std::vector<std::vector<int>>& getBoard() const;
 	int getPieceAtPos(int xPos, int yPos) const;
+
+	void resetBoard(); // public as GameManager will use this when importing game state
 	
 private:
 	const int xySize = 8;
 	std::vector<std::vector<int>> boardCells;
-
-	void resetBoard();
 };

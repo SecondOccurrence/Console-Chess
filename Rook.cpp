@@ -18,6 +18,5 @@ Rook::Rook(boardSide val, int posX, int posY)
 
 bool Rook::validateMove(coordinate oldCoords, coordinate newCoords)
 {
-	std::cout << "rook" << std::endl;
 	return false;
 }

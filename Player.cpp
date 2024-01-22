@@ -68,6 +68,51 @@ Player::Player(boardSide chosenSide)
 	}
 }
 
+void Player::clearPieces()
+{
+	pieces.clear();
+}
+
+void Player::importPiece(char piece, boardSide side, int x, int y)
+{
+	switch(piece)
+	{
+	case 'p':
+	case 'P':
+		pieces.push_back(new Pawn(side, x, y));	
+		break;
+		
+	case 'n':
+	case 'N':
+		pieces.push_back(new Knight(side, x, y));
+		break;
+
+	case 'b':
+	case 'B':
+		pieces.push_back(new Bishop(side, x, y));
+		break;
+
+	case 'r':
+	case 'R':
+		pieces.push_back(new Rook(side, x, y));
+		break;
+
+	case 'q':
+	case 'Q':
+		pieces.push_back(new Queen(side, x, y));
+		break;
+
+	case 'k':
+	case 'K':
+		pieces.push_back(new King(side, x, y));
+		break;
+		
+	default:
+		std::cout << "unidentifiable piece" << std::endl;
+		break;
+	}
+}
+
 std::string Player::getMove()
 {
 	std::string move;

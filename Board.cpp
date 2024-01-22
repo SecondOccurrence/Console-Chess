@@ -13,16 +13,22 @@ void Board::updateBoard(std::vector<PieceInfo>& piecesA, std::vector<PieceInfo>&
 
 	int xCoord, yCoord;
 
-	int SIZE = piecesA.size(); //piecesB size is the same as piecesA
-	for (int i = 0; i < SIZE; i++)
+	int sizeA = piecesA.size();
+	for (int i = 0; i < sizeA; i++)
 	{
 		xCoord = piecesA[i].coords.x;
 		yCoord = piecesA[i].coords.y;
+
 		boardCells[yCoord - 1][xCoord - 1] = piecesA[i].piece; // subtracting one as coords range 1-8
 															   //   whilst array is 0-7
+	}
 
+	int sizeB = piecesB.size();
+	for(int i = 0; i < sizeB; i++)
+	{	
 		xCoord = piecesB[i].coords.x;
 		yCoord = piecesB[i].coords.y;
+
 		boardCells[yCoord - 1][xCoord - 1] = piecesB[i].piece; // subtracting one as coords range 1-8
 															   //   whilst array is 0-7
 	}

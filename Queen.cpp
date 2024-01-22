@@ -18,6 +18,5 @@ Queen::Queen(boardSide val, int posX, int posY)
 
 bool Queen::validateMove(coordinate oldCoords, coordinate newCoords)
 {
-	std::cout << "queen" << std::endl;
 	return false;
 }
