@@ -16,6 +16,11 @@ Knight::Knight(boardSide val, int posX, int posY)
 	}
 }
 
+std::vector<coordinate> Knight::fetchMoves(coordinate startingPos)
+{
+	return std::vector<coordinate>{};
+}
+
 bool Knight::validateMove(coordinate oldCoords, coordinate newCoords)
 {
 	return false;

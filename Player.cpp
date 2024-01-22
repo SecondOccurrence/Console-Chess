@@ -171,13 +171,13 @@ bool Player::validateMove(std::string playerMove)
 	{
 		valid = false;
 	}
-	else	
+	else // move is being performed on players piece	
 	{
+		// call the validate move function for the specific piece behaviour
+		//   e.g. check if pawn move is valid
+		
 		valid = pieces[foundPieceIndex]->validateMove(originalCoord, targetCoord);
 	}
-
-	// TODO: call validate function for each piece e.g. if move is on pawn...
-	// 	call pawn->validateMove() which says the piece can only move up 1 on the board or 2 on start
 
 	return valid;
 }
@@ -224,4 +224,9 @@ bool Player::findCoordMatch(coordinate coord, int* index)
 	}
 
 	return found;
+}
+
+void Player::generatePossibleMoves(int pieceIndex, coordinate startingCoord)
+{
+	possibleMoves = pieces[pieceIndex]->fetchMoves(startingCoord);
 }

@@ -6,5 +6,6 @@ class Knight : public Piece
 public:
 	Knight(boardSide val, int posX, int posY);
 
-	bool validateMove(coordinate oldCoord, coordinate newCoord);
+	std::vector<coordinate> fetchMoves(coordinate startingPos) override;
+	bool validateMove(coordinate oldCoord, coordinate newCoord) override;
 };

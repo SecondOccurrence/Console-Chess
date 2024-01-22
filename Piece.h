@@ -1,8 +1,10 @@
 #pragma once
-#include "iostream"
 
 #include "PieceInfo.h"
 #include "Coordinate.h"
+
+#include <iostream>
+#include <vector>
 
 class Piece
 {
@@ -15,6 +17,7 @@ public:
 	PieceInfo getPieceInfo();
 
 	virtual bool validateMove(coordinate oldCoord, coordinate newCoord);
+	virtual std::vector<coordinate> fetchMoves(coordinate startingPos);
 
 protected:
 	PieceInfo info;

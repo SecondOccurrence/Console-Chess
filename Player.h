@@ -24,6 +24,8 @@ public:
 private:
 	boardSide playerSide;
 	std::vector<Piece*> pieces;
+	std::vector<coordinate> possibleMoves; // current piece to move's possible positions
 
 	bool findCoordMatch(coordinate coord, int* index);
+	void generatePossibleMoves(int foundIndex, coordinate startingCoord);
 };

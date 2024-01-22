@@ -26,6 +26,12 @@ bool GameManager::run()
 	if(sideToMove == WHITE)
 	{
 		move = whiteSide.getMove();
+		// game needs to check if move goes past or lands on an existing opponent piece
+
+		// have player return every possible move
+		//   player validates, breaks out if player piece interrupt
+		//   game validates, breaks out if opponent piece interrupt
+		//   move proceeds..
 		performMove(sideToMove, move);
 		sideToMove = BLACK;
 	}
@@ -43,6 +49,8 @@ bool GameManager::run()
 }
 void GameManager::displayBoard()
 {
+	const char pieces[13] = {'P', 'N', 'B', 'R', 'Q', 'K', 'p', 'n', 'b', 'r', 'q', 'k', '.'};
+
 	int yAxis = 8;
 	std::cout << std::endl; //formatting
 	

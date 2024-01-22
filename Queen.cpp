@@ -16,7 +16,14 @@ Queen::Queen(boardSide val, int posX, int posY)
 	}
 }
 
+std::vector<coordinate> Queen::fetchMoves(coordinate startingPos)
+{
+	return std::vector<coordinate>{};
+}
+
 bool Queen::validateMove(coordinate oldCoords, coordinate newCoords)
 {
 	return false;
 }
+
+
