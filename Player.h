@@ -18,6 +18,7 @@ public:
 
 	std::string getMove();
 	bool validateMove(std::string playerMove);
+	const std::vector<coordinate>* getPossibleMoves();
 	std::vector<PieceInfo> getPiecePositions();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 

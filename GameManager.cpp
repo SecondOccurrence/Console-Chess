@@ -38,6 +38,12 @@ bool GameManager::run()
 	else
 	{
 		move = blackSide.getMove();
+		if(move == "skip")
+		{
+			sideToMove = WHITE;
+			return gameEnded; // testing purposes
+		}
+
 		performMove(sideToMove, move);
 		sideToMove = WHITE;
 	}

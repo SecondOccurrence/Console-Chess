@@ -131,6 +131,9 @@ std::string Player::getMove()
 
 		std::cin >> move;
 
+		if(move == "skip")
+			return move; // testing purposes
+
 		validMove = validateMove(move);
 		if (!validMove)
 			std::cout << "Invalid move. Try again." << std::endl;
@@ -182,6 +185,11 @@ bool Player::validateMove(std::string playerMove)
 	}
 
 	return valid;
+}
+
+const std::vector<coordinate>* Player::getPossibleMoves()
+{
+	return &possibleMoves;	
 }
 
 std::vector<PieceInfo> Player::getPiecePositions()
