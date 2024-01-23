@@ -3,9 +3,11 @@
 #include "PieceInfo.h"
 #include "Coordinate.h"
 #include "BoardSideEnum.h"
+#include "PieceMapHash.h"
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 class Player
 {
@@ -25,6 +27,7 @@ public:
 private:
 	boardSide playerSide;
 	std::vector<Piece*> pieces;
+	std::unordered_map<coordinate, PieceInfo> testpieces;
 	std::vector<coordinate> possibleMoves; // current piece to move's possible positions
 
 	bool findCoordMatch(coordinate coord, int* index);
