@@ -1,9 +1,11 @@
-#include "GameManager.h"
-
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
+
+#include "GameManager.h"
+#include "Piece.h"
 
 GameManager::GameManager()
 {
@@ -17,8 +19,8 @@ bool GameManager::run()
 	bool gameEnded = false;
 	std::string move;
 
-	std::vector<PieceInfo> whitePieces = whiteSide.getPiecePositions();
-	std::vector<PieceInfo> blackPieces = blackSide.getPiecePositions();
+	std::unordered_map<coordinate, Piece>* whitePieces = whiteSide.getPieces();
+	std::unordered_map<coordinate, Piece>* blackPieces = blackSide.getPieces();
 
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();

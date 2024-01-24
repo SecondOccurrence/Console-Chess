@@ -7,30 +7,35 @@ Board::Board()
 	boardCells = arr;
 }
 
-void Board::updateBoard(std::vector<PieceInfo>& piecesA, std::vector<PieceInfo>& piecesB)
+void Board::updateBoard(std::unordered_map<coordinate, Piece>* piecesA, std::unordered_map<coordinate, Piece>* piecesB)
 {
 	resetBoard(); // clear the board so only the most recent piece postitions are displayed
 
-	int xCoord, yCoord;
+	coordinate currentCoord;
+	PieceInfo currentPiece;	
 
-	int sizeA = piecesA.size();
-	for (int i = 0; i < sizeA; i++)
+	std::unordered_map<coordinate, Piece>::iterator itA = piecesA->begin();
+	while(itA != piecesA->end())
 	{
-		xCoord = piecesA[i].coords.x;
-		yCoord = piecesA[i].coords.y;
-
-		boardCells[yCoord - 1][xCoord - 1] = piecesA[i].piece; // subtracting one as coords range 1-8
-															   //   whilst array is 0-7
+		currentCoord = itA->first;
+		currentPiece = itA->second.getPieceInfo();
+		
+		// subtracting 1 as coords range 1-8 whilst array is 0-7
+		boardCells[currentCoord.y - 1][currentCoord.x - 1] = currentPiece.piece;
+		
+		itA++;
 	}
 
-	int sizeB = piecesB.size();
-	for(int i = 0; i < sizeB; i++)
-	{	
-		xCoord = piecesB[i].coords.x;
-		yCoord = piecesB[i].coords.y;
+	std::unordered_map<coordinate, Piece>::iterator itB = piecesB->begin();
+	while(itB != piecesB->end())
+	{
+		currentCoord = itB->first;
+		currentPiece = itB->second.getPieceInfo();
 
-		boardCells[yCoord - 1][xCoord - 1] = piecesB[i].piece; // subtracting one as coords range 1-8
-															   //   whilst array is 0-7
+		// subtracting 1 as coords range 1-8 whilst array is 0-7
+		boardCells[currentCoord.y - 1][currentCoord.x - 1] = currentPiece.piece;
+
+		itB++;
 	}
 }
 

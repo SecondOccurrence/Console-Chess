@@ -6,8 +6,6 @@
 #include "Queen.h"
 #include "King.h"
 
-#include "Coordinate.h"
-
 Player::Player()
 {
 	playerSide = WHITE;
@@ -22,49 +20,44 @@ Player::Player(boardSide chosenSide)
 	if (playerSide == WHITE)
 	{
 		pawnPosY = 2;
-		pieces.push_back(new Knight(chosenSide, 2, 1));
-		pieces.push_back(new Knight(chosenSide, 7, 1));
+		pieces[coordinate(2, 1)] = Knight(chosenSide, 2, 1);
+		pieces[coordinate(7, 1)] = Knight(chosenSide, 7, 1);
 
-		pieces.push_back(new Bishop(chosenSide, 3, 1));
-		pieces.push_back(new Bishop(chosenSide, 6, 1));
+		pieces[coordinate(3, 1)] = Bishop(chosenSide, 3, 1);
+		pieces[coordinate(6, 1)] = Bishop(chosenSide, 6, 1);
 
-		pieces.push_back(new Rook(chosenSide, 1, 1));
-		pieces.push_back(new Rook(chosenSide, 8, 1));
+		pieces[coordinate(1, 1)] = Rook(chosenSide, 1, 1);
+		pieces[coordinate(8, 1)] = Rook(chosenSide, 8, 1);
 
-		pieces.push_back(new Queen(chosenSide, 4, 1));
+		pieces[coordinate(4, 1)] = Queen(chosenSide, 4, 1);
 		
-		pieces.push_back(new King(chosenSide, 5, 1));
+		pieces[coordinate(5, 1)] = King(chosenSide, 5, 1);
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces.push_back(new Pawn(chosenSide, i, pawnPosY));
+			pieces[coordinate(i, pawnPosY)] = Pawn(chosenSide, i, pawnPosY);
 		}
 	}	
 	else
 	{
 		pawnPosY = 7;
-		pieces.push_back(new Knight(chosenSide, 2, 8));
-		pieces.push_back(new Knight(chosenSide, 7, 8));
+		pieces[coordinate(2, 8)] = Knight(chosenSide, 2, 8);
+		pieces[coordinate(7, 8)] = Knight(chosenSide, 7, 8);
 
-		pieces.push_back(new Bishop(chosenSide, 3, 8));
-		pieces.push_back(new Bishop(chosenSide, 6, 8));
+		pieces[coordinate(3, 8)] = Bishop(chosenSide, 3, 8);
+		pieces[coordinate(6, 8)] = Bishop(chosenSide, 6, 8);
 
-		pieces.push_back(new Rook(chosenSide, 1, 8));
-		pieces.push_back(new Rook(chosenSide, 8, 8));
+		pieces[coordinate(1, 8)] = Rook(chosenSide, 1, 8);
+		pieces[coordinate(8, 8)] = Rook(chosenSide, 8, 8);
 
-		pieces.push_back(new Queen(chosenSide, 4, 8));
+		pieces[coordinate(4, 8)] = Queen(chosenSide, 4, 8);
 
-		pieces.push_back(new King(chosenSide, 5, 8));
+		pieces[coordinate(5, 8)] = King(chosenSide, 5, 8);
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces.push_back(new Pawn(chosenSide, i, pawnPosY));
+			pieces[coordinate(i, pawnPosY)] = Pawn(chosenSide, i, pawnPosY);
 		}
-	}
-	int SIZE = pieces.size();
-	for(int i=0; i<SIZE; i++)
-	{
-		pieces[i]->validateMove(coordinate(), coordinate());
 	}
 }
 
@@ -79,32 +72,32 @@ void Player::importPiece(char piece, boardSide side, int x, int y)
 	{
 	case 'p':
 	case 'P':
-		pieces.push_back(new Pawn(side, x, y));	
+		pieces[coordinate(x, y)] = Pawn(side, x, y);	
 		break;
 		
 	case 'n':
 	case 'N':
-		pieces.push_back(new Knight(side, x, y));
+		pieces[coordinate(x, y)] = Knight(side, x, y);
 		break;
 
 	case 'b':
 	case 'B':
-		pieces.push_back(new Bishop(side, x, y));
+		pieces[coordinate(x, y)] = Bishop(side, x, y);
 		break;
 
 	case 'r':
 	case 'R':
-		pieces.push_back(new Rook(side, x, y));
+		pieces[coordinate(x, y)] = Rook(side, x, y);
 		break;
 
 	case 'q':
 	case 'Q':
-		pieces.push_back(new Queen(side, x, y));
+		pieces[coordinate(x, y)] = Queen(side, x, y);
 		break;
 
 	case 'k':
 	case 'K':
-		pieces.push_back(new King(side, x, y));
+		pieces[coordinate(x, y)] = King(side, x, y);
 		break;
 		
 	default:
@@ -167,31 +160,38 @@ bool Player::validateMove(std::string playerMove)
 	coordinate originalCoord{(int)playerMove[0] - 96, (int)playerMove[1] - 48};
 	coordinate targetCoord{(int)playerMove[2] - 96, (int)playerMove[3] - 48};
 
-	int foundPieceIndex = 0;
-	bool isPlayerPiece = findCoordMatch(originalCoord, &foundPieceIndex);
-
-	if(!isPlayerPiece)
+	try
+	{
+		possibleMoves = pieces.at(originalCoord).fetchMoves(originalCoord);
+	}
+	catch(std::out_of_range& e)
 	{
 		valid = false;
+		std::cout << "not on player piece" << std::endl;
 	}
-	else // move is being performed on players piece	
+	
+	int SIZE = possibleMoves.size();
+	for(int i = 0; i < SIZE; i++)
 	{
-		
-		
-		generatePossibleMoves(foundPieceIndex, originalCoord);
+		std::cout << possibleMoves[i].x << " " << possibleMoves[i].y << std::endl;
+	}
 
-		// TODO: use the generated moves in player move validation
-		// 	loop through coordinates see if a piece exists there
-		// 		getPieceAtPos
-		//
-		// 		ISSUE:
-		// 			too much looping through pieces, inefficient
-		// 		POTENTIAL FIX:
-		// 			use a map with key as coordinate value as piece. fast access time
+	// TODO: use the generated moves in player move validation
+	// 	loop through coordinates see if a piece exists there
+	// 		getPieceAtPos
+	//
+	// 		ISSUE:
+	// 			too much looping through pieces, inefficient
+	// 		POTENTIAL FIX:
+	// 			use a map with key as coordinate value as piece. fast access time
 
-		// call the validate move function for the specific piece behaviour
-		//   e.g. check if pawn move is valid	
-		valid = pieces[foundPieceIndex]->validateMove(originalCoord, targetCoord);
+	// call the validate move function for the specific piece behaviour
+	//   e.g. check if pawn move is valid
+
+	if(valid) // move is being called on player piece. now the specific piece
+			  //   move behaviour needs to be checked
+	{
+		valid = pieces.at(originalCoord).validateMove(originalCoord, targetCoord);
 	}
 
 	return valid;
@@ -202,57 +202,16 @@ const std::vector<coordinate>* Player::getPossibleMoves()
 	return &possibleMoves;	
 }
 
-std::vector<PieceInfo> Player::getPiecePositions()
+std::unordered_map<coordinate, Piece>* Player::getPieces()
 {
-	std::vector<PieceInfo> piecePosArr;
-
-	int pieceAmount = pieces.size();
-	for (int i = 0; i < pieceAmount; i++)
-	{
-		piecePosArr.push_back(pieces[i]->getPieceInfo());
-	}
-	return piecePosArr;
+	return &pieces;
 }
 
 void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 {
-	int SIZE = pieces.size();
-	for(int i = 0; i < SIZE; i++)
-	{
-		if(pieces[i]->getX() == oldCoords.x && pieces[i]->getY() == oldCoords.y)
-		{
-			pieces[i]->setX(newCoords.x);
-			pieces[i]->setY(newCoords.y);
-		break;
-		}
-	}
+	auto node = pieces.extract(oldCoords);
+	node.key() = newCoords;
+	pieces.insert(std::move(node));
 }
 
-bool Player::findCoordMatch(coordinate coord, int* index)
-{
-	bool found = false;
 
-	int SIZE = pieces.size();
-	for(int i = 0; i < SIZE; i++)
-	{
-		if(pieces[i]->getX() == coord.x && pieces[i]->getY() == coord.y)
-		{
-			found = true;
-			*index = i;
-			break;
-		}
-	}
-
-	return found;
-}
-
-void Player::generatePossibleMoves(int pieceIndex, coordinate startingCoord)
-{
-	possibleMoves = pieces[pieceIndex]->fetchMoves(startingCoord);
-
-	int SIZE = possibleMoves.size();
-	for(int i = 0; i < SIZE; i++)
-	{
-		std::cout << possibleMoves[i].x << " " << possibleMoves[i].y << std::endl;
-	}
-}

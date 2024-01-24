@@ -1,15 +1,16 @@
 #pragma once
 
-#include "PieceInfo.h"
+#include "Coordinate.h"
+#include "Piece.h"
 
-#include <vector>
+#include <unordered_map>
 
 class Board
 {
 public:
 	Board();
 
-	void updateBoard(std::vector<PieceInfo> &piecesA, std::vector<PieceInfo> &piecesB);
+	void updateBoard(std::unordered_map<coordinate, Piece>* piecesA, std::unordered_map<coordinate, Piece>* piecesB);
 	const std::vector<std::vector<int>>& getBoard() const;
 	int getPieceAtPos(int xPos, int yPos) const;
 
