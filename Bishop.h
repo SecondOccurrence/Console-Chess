@@ -6,6 +6,7 @@ class Bishop : public Piece
 public:
 	Bishop(boardSide val, int posX, int posY);
 
-	std::vector<coordinate> fetchMoves(coordinate startingPos) override;
-	bool validateMove(coordinate oldCoord, coordinate newCoord) override;	
+	std::vector<std::vector<coordinate>> fetchMoves(coordinate startingPos) override;
+	bool validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths) override;
+
 };

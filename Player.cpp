@@ -178,12 +178,6 @@ bool Player::validateMove(std::string playerMove)
 
 	// TODO: use the generated moves in player move validation
 	// 	loop through coordinates see if a piece exists there
-	// 		getPieceAtPos
-	//
-	// 		ISSUE:
-	// 			too much looping through pieces, inefficient
-	// 		POTENTIAL FIX:
-	// 			use a map with key as coordinate value as piece. fast access time
 
 	// call the validate move function for the specific piece behaviour
 	//   e.g. check if pawn move is valid
@@ -191,7 +185,7 @@ bool Player::validateMove(std::string playerMove)
 	if(valid) // move is being called on player piece. now the specific piece
 			  //   move behaviour needs to be checked
 	{
-		valid = pieces.at(originalCoord).validateMove(originalCoord, targetCoord);
+		valid = pieces.at(originalCoord).validateMove(targetCoord, &possibleMoves);
 	}
 
 	return valid;

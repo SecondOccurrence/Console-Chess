@@ -16,12 +16,12 @@ Rook::Rook(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<coordinate> Rook::fetchMoves(coordinate startingPos)
+std::vector<std::vector<coordinate>> Rook::fetchMoves(coordinate startingPos)
 {
-	return std::vector<coordinate>{};
+	return std::vector<std::vector<coordinate>>{};
 }
 
-bool Rook::validateMove(coordinate oldCoords, coordinate newCoords)
+bool Rook::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
 {
 	return false;
 }

@@ -27,5 +27,9 @@ public:
 private:
 	boardSide playerSide;
 	std::unordered_map<coordinate, Piece> pieces;
-	std::vector<coordinate> possibleMoves; // current piece to move's possible positions
+
+	// TODO: change to 2d array vector<vector<coordinate>> for each path
+	//   need to distinguish between different paths for move validation
+	std::vector<std::vector<coordinate>> possibleMoves; // current piece to move's possible positions
+														//   each sub-vector corresponds to each move path
 };

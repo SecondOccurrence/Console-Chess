@@ -16,12 +16,12 @@ Bishop::Bishop(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<coordinate> Bishop::fetchMoves(coordinate startingPos)
+std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 {
-	return std::vector<coordinate>{};
+	return {};
 }
 
-bool Bishop::validateMove(coordinate oldCoords, coordinate newCoords)
+bool Bishop::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
 {
 	return false;
 }

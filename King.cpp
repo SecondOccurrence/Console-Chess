@@ -16,12 +16,12 @@ King::King(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<coordinate> King::fetchMoves(coordinate startingPos)
+std::vector<std::vector<coordinate>> King::fetchMoves(coordinate startingPos)
 {
-	return std::vector<coordinate>{};
+	return std::vector<std::vector<coordinate>>{};
 }
 
-bool King::validateMove(coordinate oldCoords, coordinate newCoords)
+bool King::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
 {
 	return false;
 }

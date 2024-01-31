@@ -16,9 +16,12 @@ Pawn::Pawn(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<coordinate> Pawn::fetchMoves(coordinate startingPos)
+std::vector<std::vector<coordinate>> Pawn::fetchMoves(coordinate startingPos)
 {
-	std::vector<coordinate> coordinates;
+	std::vector<std::vector<coordinate>> allMoveCoordinates;
+
+	allMoveCoordinates.push_back(std::vector<coordinate>{}); // first vector, regular moves
+	allMoveCoordinates.push_back(std::vector<coordinate>{}); // second vector, capture moves
 
 	int increment;
 	if(info.side == WHITE)
@@ -32,27 +35,29 @@ std::vector<coordinate> Pawn::fetchMoves(coordinate startingPos)
 
 	if(startingPos.y <= 7)
 	{
-		coordinates.push_back(coordinate{startingPos.x, startingPos.y + increment});
+		allMoveCoordinates[1].push_back(coordinate{startingPos.x, startingPos.y + increment});
+
+		if(startingPos.y <= 6)
+		{
+			allMoveCoordinates[1].push_back(coordinate{startingPos.x, startingPos.y + (increment + increment)});
+		}
 
 		// capture moves
 		if(startingPos.x >= 2)
 		{
-			coordinates.push_back(coordinate{startingPos.x - 1, startingPos.y + increment});
+			allMoveCoordinates[0].push_back(coordinate{startingPos.x - 1, startingPos.y + increment});
+
+			if(startingPos.x <= 7)
+			{
+				allMoveCoordinates[0].push_back(coordinate{startingPos.x + 1, startingPos.y + increment});
+			}
 		}
-		if(startingPos.x <= 7)
-		{
-			coordinates.push_back(coordinate{startingPos.x + 1, startingPos.y + increment});
-		}
-	}
-	if(startingPos.y <= 6)
-	{
-		coordinates.push_back(coordinate{startingPos.x, startingPos.y + (increment + increment)});
 	}
 	
-	return coordinates;
+	return allMoveCoordinates;
 }
 
-bool Pawn::validateMove(coordinate oldCoord, coordinate newCoord)
+bool Pawn::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
 {
 	// NOTE: there is a separate function for treating with piece captures.
 

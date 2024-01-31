@@ -35,12 +35,12 @@ PieceInfo Piece::getPieceInfo()
 	return info;
 }
 
-std::vector<coordinate> Piece::fetchMoves(coordinate startingPos)
+std::vector<std::vector<coordinate>> Piece::fetchMoves(coordinate startingPos)
 {
-	return std::vector<coordinate>{};
+	return {};
 }
 
-bool Piece::validateMove(coordinate oldCoord, coordinate newCoord)
+bool Piece::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
 {
 	return true;
 }
