@@ -19,8 +19,8 @@ bool GameManager::run()
 	bool gameEnded = false;
 	std::string move;
 
-	std::unordered_map<coordinate, Piece>* whitePieces = whiteSide.getPieces();
-	std::unordered_map<coordinate, Piece>* blackPieces = blackSide.getPieces();
+	std::unordered_map<coordinate, Piece*>* whitePieces = whiteSide.getPieces();
+	std::unordered_map<coordinate, Piece*>* blackPieces = blackSide.getPieces();
 
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();

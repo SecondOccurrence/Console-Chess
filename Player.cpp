@@ -11,6 +11,15 @@ Player::Player()
 	playerSide = WHITE;
 }
 
+Player::~Player()
+{
+	for(std::unordered_map<coordinate, Piece*>::iterator it = pieces.begin(); it != pieces.end(); )
+	{
+		delete it->second;
+		it = pieces.erase(it);
+	}
+}
+
 Player::Player(boardSide chosenSide)
 {
 	playerSide = chosenSide;
@@ -20,43 +29,43 @@ Player::Player(boardSide chosenSide)
 	if (playerSide == WHITE)
 	{
 		pawnPosY = 2;
-		pieces[coordinate(2, 1)] = Knight(chosenSide, 2, 1);
-		pieces[coordinate(7, 1)] = Knight(chosenSide, 7, 1);
+		pieces[coordinate(2, 1)] = new Knight(chosenSide, 2, 1);
+		pieces[coordinate(7, 1)] = new Knight(chosenSide, 7, 1);
 
-		pieces[coordinate(3, 1)] = Bishop(chosenSide, 3, 1);
-		pieces[coordinate(6, 1)] = Bishop(chosenSide, 6, 1);
+		pieces[coordinate(3, 1)] = new Bishop(chosenSide, 3, 1);
+		pieces[coordinate(6, 1)] = new Bishop(chosenSide, 6, 1);
 
-		pieces[coordinate(1, 1)] = Rook(chosenSide, 1, 1);
-		pieces[coordinate(8, 1)] = Rook(chosenSide, 8, 1);
+		pieces[coordinate(1, 1)] = new Rook(chosenSide, 1, 1);
+		pieces[coordinate(8, 1)] = new Rook(chosenSide, 8, 1);
 
-		pieces[coordinate(4, 1)] = Queen(chosenSide, 4, 1);
+		pieces[coordinate(4, 1)] = new Queen(chosenSide, 4, 1);
 		
-		pieces[coordinate(5, 1)] = King(chosenSide, 5, 1);
+		pieces[coordinate(5, 1)] = new King(chosenSide, 5, 1);
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces[coordinate(i, pawnPosY)] = Pawn(chosenSide, i, pawnPosY);
+			pieces[coordinate(i, pawnPosY)] = new Pawn(chosenSide, i, pawnPosY);
 		}
 	}	
 	else
 	{
 		pawnPosY = 7;
-		pieces[coordinate(2, 8)] = Knight(chosenSide, 2, 8);
-		pieces[coordinate(7, 8)] = Knight(chosenSide, 7, 8);
+		pieces[coordinate(2, 8)] = new Knight(chosenSide, 2, 8);
+		pieces[coordinate(7, 8)] = new Knight(chosenSide, 7, 8);
 
-		pieces[coordinate(3, 8)] = Bishop(chosenSide, 3, 8);
-		pieces[coordinate(6, 8)] = Bishop(chosenSide, 6, 8);
+		pieces[coordinate(3, 8)] = new Bishop(chosenSide, 3, 8);
+		pieces[coordinate(6, 8)] = new Bishop(chosenSide, 6, 8);
 
-		pieces[coordinate(1, 8)] = Rook(chosenSide, 1, 8);
-		pieces[coordinate(8, 8)] = Rook(chosenSide, 8, 8);
+		pieces[coordinate(1, 8)] = new Rook(chosenSide, 1, 8);
+		pieces[coordinate(8, 8)] = new Rook(chosenSide, 8, 8);
 
-		pieces[coordinate(4, 8)] = Queen(chosenSide, 4, 8);
+		pieces[coordinate(4, 8)] = new Queen(chosenSide, 4, 8);
 
-		pieces[coordinate(5, 8)] = King(chosenSide, 5, 8);
+		pieces[coordinate(5, 8)] = new King(chosenSide, 5, 8);
 
 		for (int i = 1; i < 9; i++)
 		{
-			pieces[coordinate(i, pawnPosY)] = Pawn(chosenSide, i, pawnPosY);
+			pieces[coordinate(i, pawnPosY)] = new Pawn(chosenSide, i, pawnPosY);
 		}
 	}
 }
@@ -72,32 +81,32 @@ void Player::importPiece(char piece, boardSide side, int x, int y)
 	{
 	case 'p':
 	case 'P':
-		pieces[coordinate(x, y)] = Pawn(side, x, y);	
+		pieces[coordinate(x, y)] = new Pawn(side, x, y);	
 		break;
 		
 	case 'n':
 	case 'N':
-		pieces[coordinate(x, y)] = Knight(side, x, y);
+		pieces[coordinate(x, y)] = new Knight(side, x, y);
 		break;
 
 	case 'b':
 	case 'B':
-		pieces[coordinate(x, y)] = Bishop(side, x, y);
+		pieces[coordinate(x, y)] = new Bishop(side, x, y);
 		break;
 
 	case 'r':
 	case 'R':
-		pieces[coordinate(x, y)] = Rook(side, x, y);
+		pieces[coordinate(x, y)] = new Rook(side, x, y);
 		break;
 
 	case 'q':
 	case 'Q':
-		pieces[coordinate(x, y)] = Queen(side, x, y);
+		pieces[coordinate(x, y)] = new Queen(side, x, y);
 		break;
 
 	case 'k':
 	case 'K':
-		pieces[coordinate(x, y)] = King(side, x, y);
+		pieces[coordinate(x, y)] = new King(side, x, y);
 		break;
 		
 	default:
@@ -162,18 +171,12 @@ bool Player::validateMove(std::string playerMove)
 
 	try
 	{
-		possibleMoves = pieces.at(originalCoord).fetchMoves(originalCoord);
+		possibleMoves = pieces.at(originalCoord)->fetchMoves(originalCoord);
 	}
 	catch(std::out_of_range& e)
 	{
 		valid = false;
 		std::cout << "not on player piece" << std::endl;
-	}
-	
-	int SIZE = possibleMoves.size();
-	for(int i = 0; i < SIZE; i++)
-	{
-		std::cout << possibleMoves[i].x << " " << possibleMoves[i].y << std::endl;
 	}
 
 	// TODO: use the generated moves in player move validation
@@ -185,18 +188,18 @@ bool Player::validateMove(std::string playerMove)
 	if(valid) // move is being called on player piece. now the specific piece
 			  //   move behaviour needs to be checked
 	{
-		valid = pieces.at(originalCoord).validateMove(targetCoord, &possibleMoves);
+		valid = pieces.at(originalCoord)->validateMove(originalCoord, targetCoord, &possibleMoves);
 	}
 
 	return valid;
 }
 
-const std::vector<coordinate>* Player::getPossibleMoves()
+const std::vector<std::vector<coordinate>>* Player::getPossibleMoves()
 {
 	return &possibleMoves;	
 }
 
-std::unordered_map<coordinate, Piece>* Player::getPieces()
+std::unordered_map<coordinate, Piece*>* Player::getPieces()
 {
 	return &pieces;
 }

@@ -7,18 +7,18 @@ Board::Board()
 	boardCells = arr;
 }
 
-void Board::updateBoard(std::unordered_map<coordinate, Piece>* piecesA, std::unordered_map<coordinate, Piece>* piecesB)
+void Board::updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::unordered_map<coordinate, Piece*>* piecesB)
 {
 	resetBoard(); // clear the board so only the most recent piece postitions are displayed
 
 	coordinate currentCoord;
 	PieceInfo currentPiece;	
 
-	std::unordered_map<coordinate, Piece>::iterator itA = piecesA->begin();
+	std::unordered_map<coordinate, Piece*>::iterator itA = piecesA->begin();
 	while(itA != piecesA->end())
 	{
 		currentCoord = itA->first;
-		currentPiece = itA->second.getPieceInfo();
+		currentPiece = itA->second->getPieceInfo();
 		
 		// subtracting 1 as coords range 1-8 whilst array is 0-7
 		boardCells[currentCoord.y - 1][currentCoord.x - 1] = currentPiece.piece;
@@ -26,11 +26,11 @@ void Board::updateBoard(std::unordered_map<coordinate, Piece>* piecesA, std::uno
 		itA++;
 	}
 
-	std::unordered_map<coordinate, Piece>::iterator itB = piecesB->begin();
+	std::unordered_map<coordinate, Piece*>::iterator itB = piecesB->begin();
 	while(itB != piecesB->end())
 	{
 		currentCoord = itB->first;
-		currentPiece = itB->second.getPieceInfo();
+		currentPiece = itB->second->getPieceInfo();
 
 		// subtracting 1 as coords range 1-8 whilst array is 0-7
 		boardCells[currentCoord.y - 1][currentCoord.x - 1] = currentPiece.piece;

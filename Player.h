@@ -12,6 +12,7 @@ class Player
 {
 public:
 	Player();
+	~Player();
 	Player(boardSide chosenSide);
 
 	void clearPieces(); // used for importing a game
@@ -19,14 +20,14 @@ public:
 
 	std::string getMove();
 	bool validateMove(std::string playerMove);
-	const std::vector<coordinate>* getPossibleMoves();
+	const std::vector<std::vector<coordinate>>* getPossibleMoves();
 
-	std::unordered_map<coordinate, Piece>* getPieces();
+	std::unordered_map<coordinate, Piece*>* getPieces();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
 private:
 	boardSide playerSide;
-	std::unordered_map<coordinate, Piece> pieces;
+	std::unordered_map<coordinate, Piece*> pieces;
 
 	// TODO: change to 2d array vector<vector<coordinate>> for each path
 	//   need to distinguish between different paths for move validation

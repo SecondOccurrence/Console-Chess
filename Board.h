@@ -10,7 +10,7 @@ class Board
 public:
 	Board();
 
-	void updateBoard(std::unordered_map<coordinate, Piece>* piecesA, std::unordered_map<coordinate, Piece>* piecesB);
+	void updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::unordered_map<coordinate, Piece*>* piecesB);
 	const std::vector<std::vector<int>>& getBoard() const;
 	int getPieceAtPos(int xPos, int yPos) const;
 
