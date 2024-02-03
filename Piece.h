@@ -16,7 +16,7 @@ public:
 	void setY(int y);
 	PieceInfo getPieceInfo();
 
-	virtual bool validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths);
+	virtual bool validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths);
 	virtual std::vector<std::vector<coordinate>> fetchMoves(coordinate startingPos);
 
 protected:

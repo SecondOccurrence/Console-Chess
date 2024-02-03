@@ -21,7 +21,7 @@ std::vector<std::vector<coordinate>> Queen::fetchMoves(coordinate startingPos)
 	return std::vector<std::vector<coordinate>>{};
 }
 
-bool Queen::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
+bool Queen::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
 {
 	return false;
 }

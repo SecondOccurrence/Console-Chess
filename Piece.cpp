@@ -37,10 +37,11 @@ PieceInfo Piece::getPieceInfo()
 
 std::vector<std::vector<coordinate>> Piece::fetchMoves(coordinate startingPos)
 {
+	std::cout << "hwef" << std::endl;
 	return {};
 }
 
-bool Piece::validateMove(coordinate targetCoord, std::vector<coordinate>* movePaths)
+bool Piece::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
 {
 	return true;
 }
