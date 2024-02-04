@@ -21,10 +21,10 @@ std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 {
 	std::vector<std::vector<coordinate>> possibleMoves;
 
-	int maxLeft = startingPos.x;
+	int maxLeft = startingPos.x - 1;
 	int maxRight = 8 - startingPos.x;
 	int maxUp = 8 - startingPos.y;
-	int maxDown = startingPos.y;
+	int maxDown = startingPos.y - 1;
 
 	std::vector<coordinate> movePath;
 	
@@ -70,10 +70,10 @@ std::vector<coordinate> Bishop::addMoves(coordinate coords, int xInc, int yInc, 
 
 	for(int i = 0; i < minLimit; i++)
 	{
-		newMovePath.push_back(coords);
-
 		coords.x = coords.x + xInc;
 		coords.y = coords.y + yInc;
+
+		newMovePath.push_back(coords);
 	}
 
 	return newMovePath;

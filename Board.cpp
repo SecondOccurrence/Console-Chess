@@ -22,7 +22,7 @@ void Board::updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::un
 		
 		// subtracting 1 as coords range 1-8 whilst array is 0-7
 		boardCells[currentCoord.y - 1][currentCoord.x - 1] = currentPiece.piece;
-		
+
 		itA++;
 	}
 
@@ -53,6 +53,7 @@ void Board::resetBoard()
 {
 	int xSize = boardCells.size();
 	int ySize = boardCells[0].size(); // all 2nd dimension arrays are equal in size
+
 	for(int i = 0; i < xSize; i++)
 	{
 		for(int j = 0; j < ySize; j++)

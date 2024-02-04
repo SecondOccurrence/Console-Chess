@@ -10,10 +10,13 @@ class Piece
 {
 public:
 	Piece();
+
+	//do these functions need to exist?
 	int getX() const;
 	int getY() const;
 	void setX(int x);
 	void setY(int y);
+
 	PieceInfo getPieceInfo();
 
 	virtual bool validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths);

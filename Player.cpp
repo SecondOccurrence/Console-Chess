@@ -13,13 +13,14 @@ Player::Player()
 
 Player::~Player()
 {
+
+	std::cout << "EFLAEIHILQFJFQEHJFQWFPFHWEPQEO:FJIQEOFJ{OQWIFJ" << std::endl;
 	for(std::unordered_map<coordinate, Piece*>::iterator it = pieces.begin(); it != pieces.end(); )
 	{
 		delete it->second;
 		it = pieces.erase(it);
 	}
 }
-
 Player::Player(boardSide chosenSide)
 {
 	playerSide = chosenSide;
@@ -179,6 +180,8 @@ bool Player::validateMove(std::string playerMove)
 		std::cout << "not on player piece" << std::endl;
 	}
 
+	pruneMovePaths(possibleMoves);
+
 	// TODO: use the generated moves in player move validation
 	// 	loop through coordinates see if a piece exists there
 
@@ -211,4 +214,36 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	pieces.insert(std::move(node));
 }
 
+void Player::pruneMovePaths(std::vector<std::vector<coordinate>>& movePaths)
+{
+	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieces.begin();
+	int pathSize1D = movePaths.size();
+	int pathSize2D;
 
+	while(pieceItr != pieces.end())
+	{
+		// check if any move path coordinate exists as piece
+		for(int i = 0; i < pathSize1D; i++)
+		{
+			pathSize2D = movePaths[i].size();
+			for(int j = 0; j < pathSize2D; j++)
+			{
+				if(movePaths[i][j] == pieceItr->second->getPieceInfo().coords)
+				{
+					/* coordinates in the vector are in order 
+					 *  from closest->furthest from original position
+					 *  can delete any element after the match to prune the tree
+					 *  of moves that cannot be made as a piece is in the way
+					 */
+
+					// delete everything past and including the found piece in the way
+					movePaths.erase(movePaths.begin() + j, movePaths.end());
+
+					break;
+				}
+			}
+		}
+
+		pieceItr++;
+	}	
+}
