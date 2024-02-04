@@ -19,13 +19,6 @@ Bishop::Bishop(boardSide val, int posX, int posY)
 // change to return pointer
 std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 {
-	// x,y 
-	// +1,+1 until maxRight maxUp
-	// -1,-1 until maxLeft  maxDown
-	// +1,-1 until maxRight maxDown
-	// -1,+1 until maxLeft  maxUp
-	//
-	// get lowest of values run for loop to that
 	std::vector<std::vector<coordinate>> possibleMoves;
 
 	int maxLeft = startingPos.x;
@@ -33,24 +26,22 @@ std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 	int maxUp = 8 - startingPos.y;
 	int maxDown = startingPos.y;
 
-	std::cout << maxRight << "|" << maxUp << std::endl;
-
 	std::vector<coordinate> movePath;
 	
 	// right up diagonal path
-	movePath = addMoves(startingPos, maxRight, 1, maxUp, 1);
+	movePath = addMoves(startingPos, 1, 1, maxRight, maxUp);
 	possibleMoves.push_back(movePath);
 
 	// left up diagonal path
-	movePath = addMoves(startingPos, maxLeft, -1, maxUp, 1);
+	movePath = addMoves(startingPos, -1, 1, maxLeft, maxUp);
 	possibleMoves.push_back(movePath);
 	
 	// left down diagonal path
-	movePath = addMoves(startingPos, maxLeft, -1, maxDown, -1);
+	movePath = addMoves(startingPos, -1, -1, maxLeft, maxDown);
 	possibleMoves.push_back(movePath);
 	
 	// right down diagonal path
-	movePath = addMoves(startingPos, maxRight, -1, maxDown, -1);
+	movePath = addMoves(startingPos, 1, -1, maxRight, maxDown);
 	possibleMoves.push_back(movePath);
 
 	return possibleMoves;
@@ -58,6 +49,8 @@ std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 
 bool Bishop::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
 {
+	
+
 	return false;
 }
 
