@@ -9,9 +9,15 @@
 
 GameManager::GameManager()
 {
-	whiteSide = Player(WHITE);
-	blackSide = Player(BLACK);
+	whiteSide = new Player(WHITE);
+	blackSide = new Player(BLACK);
 	sideToMove = WHITE;
+}
+
+GameManager::~GameManager()
+{
+	delete whiteSide;
+	delete blackSide;
 }
 
 bool GameManager::run()
@@ -19,15 +25,15 @@ bool GameManager::run()
 	bool gameEnded = false;
 	std::string move;
 
-	std::unordered_map<coordinate, Piece*>* whitePieces = whiteSide.getPieces();
-	std::unordered_map<coordinate, Piece*>* blackPieces = blackSide.getPieces();
+	std::unordered_map<coordinate, Piece*>* whitePieces = whiteSide->getPieces();
+	std::unordered_map<coordinate, Piece*>* blackPieces = blackSide->getPieces();
 
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();
 
 	if(sideToMove == WHITE)
 	{
-		move = whiteSide.getMove();
+		move = whiteSide->getMove();
 		// game needs to check if move goes past or lands on an existing opponent piece
 
 		// have player return every possible move
@@ -39,7 +45,7 @@ bool GameManager::run()
 	}
 	else
 	{
-		move = blackSide.getMove();
+		move = blackSide->getMove();
 		if(move == "skip")
 		{
 			sideToMove = WHITE;
@@ -91,8 +97,8 @@ void GameManager::readFENBoard()
 {
 	// remove all existing pieces from the board
 	board.resetBoard();
-	whiteSide.clearPieces();
-	blackSide.clearPieces();
+	whiteSide->clearPieces();
+	blackSide->clearPieces();
 
 	std::string FENString = getFENString();
 	std::stringstream FENStringstream;
@@ -115,12 +121,12 @@ void GameManager::readFENBoard()
 			{
 				if(row[i] >= 'A' && row[i] <= 'Z') // is a capital letter -> white piece
 				{
-					whiteSide.importPiece(row[i], WHITE, xCoord, yCoord);
+					whiteSide->importPiece(row[i], WHITE, xCoord, yCoord);
 					// switch case piece -> object -> push back(new Pawn(white, x, y)
 				}
 				else if(row[i] >= 'a' && row[i] <= 'z')
 				{
-					blackSide.importPiece(row[i], BLACK, xCoord, yCoord);
+					blackSide->importPiece(row[i], BLACK, xCoord, yCoord);
 					// switch case piece -> object -> push back(new Pawn(black, x, y)
 				}
 				xCoord += 1;
@@ -167,10 +173,10 @@ void GameManager::performMove(boardSide moveSide, std::string move)
 
 	if(moveSide == WHITE)
 	{
-		whiteSide.assignNewPosition(initialCoords, moveCoords);
+		whiteSide->assignNewPosition(initialCoords, moveCoords);
 	}
 	else
 	{
-		blackSide.assignNewPosition(initialCoords, moveCoords);
+		blackSide->assignNewPosition(initialCoords, moveCoords);
 	}
 }

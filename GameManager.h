@@ -8,6 +8,7 @@ class GameManager
 {
 public:
 	GameManager();
+	~GameManager();
 
 	bool run();
 	void displayBoard();
@@ -16,8 +17,8 @@ public:
 private:
 	Board board;
 	boardSide sideToMove;
-	Player whiteSide;
-	Player blackSide;
+	Player* whiteSide;
+	Player* blackSide;
 
 	std::string getFENString();
 	void performMove(boardSide moveSide, std::string move);
