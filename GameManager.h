@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Board.h"
 #include "BoardSideEnum.h"
+#include "Coordinate.h"
 
 class GameManager
 {
@@ -23,4 +24,6 @@ private:
 	std::string getFENString();
 	void performMove(boardSide moveSide, std::string move);
 	bool isValidMove(std::string move);
+
+	bool checkForCapture(coordinate targetCoord, std::unordered_map<coordinate, Piece*>* allyPieces, std::unordered_map<coordinate, Piece*>* opponentPieces);
 };

@@ -198,7 +198,7 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	pieces.insert(std::move(node));
 }
 
-void Player::pruneMovePaths(std::unordered_map<coordinate, Piece*>* pieceMap)
+void Player::pruneMovePathsInt(std::unordered_map<coordinate, Piece*>* pieceMap)
 {
 	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieceMap->begin();
 	int pathSize1D = possibleMoves.size();
@@ -232,7 +232,47 @@ void Player::pruneMovePaths(std::unordered_map<coordinate, Piece*>* pieceMap)
 	}	
 }
 
+// used externally as clashing with an opponent piece means capture, not collision
+void Player::pruneMovePathsExt(std::unordered_map<coordinate, Piece*>* pieceMap)
+{
+	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieceMap->begin();
+	int pathSize1D = possibleMoves.size();
+	int pathSize2D;
+
+	while(pieceItr != pieceMap->end())
+	{
+		// check if any move path coordinate exists as piece
+		for(int i = 0; i < pathSize1D; i++)
+		{
+			pathSize2D = possibleMoves[i].size();
+			for(int j = 0; j < pathSize2D; j++)
+			{
+				if(possibleMoves[i][j] == pieceItr->second->getPieceInfo().coords)
+				{
+					/* coordinates in the vector are in order 
+					 *  from closest->furthest from original position
+					 *  can delete any element after the match to prune the tree
+					 *  of moves that cannot be made as a piece is in the way
+					 */
+
+					// delete everything past (*NOT INCLUDING*) the found piece in the way
+					possibleMoves[i].erase(possibleMoves[i].begin() + (j + 1), possibleMoves[i].end());
+
+					break;
+				}
+			}
+		}
+
+		pieceItr++;
+	}	
+}
+
 bool Player::isValidPieceMove(coordinate originalCoord, coordinate targetCoord)
 {
 	return pieces[originalCoord]->validateMove(targetCoord, possibleMoves);
+}
+
+void Player::removePiece(coordinate pieceToRemove)
+{
+	pieces.erase(pieceToRemove);
 }

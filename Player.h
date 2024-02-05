@@ -25,8 +25,13 @@ public:
 	std::unordered_map<coordinate, Piece*>* getPieces();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
-	void pruneMovePaths(std::unordered_map<coordinate, Piece*>* pieceMap);
+	void pruneMovePathsInt(std::unordered_map<coordinate, Piece*>* pieceMap);
+	void pruneMovePathsExt(std::unordered_map<coordinate, Piece*>* pieceMap);
+	
+
 	bool isValidPieceMove(coordinate originalCoord, coordinate targetCoord);
+
+	void removePiece(coordinate pieceToRemove);
 
 private:
 	boardSide playerSide;

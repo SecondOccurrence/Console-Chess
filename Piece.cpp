@@ -53,7 +53,6 @@ bool Piece::validateMove(coordinate targetCoord, std::vector<std::vector<coordin
 		{
 			if(movePaths[i][j] == targetCoord)
 			{
-				std::cout << "this is a valid move" << std::endl;
 				valid = true;
 				break;
 			}

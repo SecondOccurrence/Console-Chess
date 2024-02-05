@@ -187,19 +187,55 @@ void GameManager::performMove(boardSide moveSide, std::string move)
 bool GameManager::isValidMove(std::string move)
 {
 	bool valid = whiteSide->validateMove(move);
+	bool isCapture;
 
 	if(valid)
 	{
 		// prune moves being blocked by players pieces
-		whiteSide->pruneMovePaths(whiteSide->getPieces());
+		whiteSide->pruneMovePathsInt(whiteSide->getPieces());
 		// now by opponent pieces
-		whiteSide->pruneMovePaths(blackSide->getPieces());
+		whiteSide->pruneMovePathsExt(blackSide->getPieces());
 
 		coordinate originalCoord{(int)move[0] - 96, (int)move[1] - 48};
 		coordinate targetCoord{(int)move[2] - 96, (int)move[3] - 48};
 	
 		valid = whiteSide->isValidPieceMove(originalCoord, targetCoord);
+
+		// check if two clashing pieces, remove the other as its been captured
+		isCapture = checkForCapture(targetCoord, whiteSide->getPieces(), blackSide->getPieces());
+
+		if(isCapture)
+		{
+			blackSide->removePiece(targetCoord);
+		}
 	}
 
 	return valid;
+}
+
+bool GameManager::checkForCapture(coordinate targetCoord, std::unordered_map<coordinate, Piece*>* allyPieces, std::unordered_map<coordinate, Piece*>* opponentPieces)
+{
+	bool pieceFound = false;
+
+	std::unordered_map<coordinate, Piece*>::iterator opponentPieceItr = opponentPieces->begin();
+
+	Piece* currentPiece;
+	while(opponentPieceItr != opponentPieces->end())
+	{
+		try
+		{
+			currentPiece = opponentPieces->at(targetCoord);
+			pieceFound = true;
+			delete currentPiece;
+			break;
+		}
+		catch(std::out_of_range &e)
+		{
+			std::cout << "no piece found" << std::endl;
+		}
+
+		opponentPieceItr++;
+	}
+
+	return pieceFound;
 }
