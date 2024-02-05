@@ -67,10 +67,3 @@ std::vector<std::vector<coordinate>> Pawn::fetchMoves(coordinate startingPos)
 	*/
 	return {};
 }
-
-bool Pawn::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
-{
-	bool valid = true;
-
-	return valid;
-}

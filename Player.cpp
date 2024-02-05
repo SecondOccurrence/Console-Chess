@@ -132,13 +132,13 @@ std::string Player::getMove()
 			std::cout << "Black move:" << std::endl;
 		}
 
-		std::cin >> move;
+		std::cin >> move;	
 
 		if(move == "skip")
 			return move; // testing purposes
-
+		
 		validMove = validateMove(move);
-		if (!validMove)
+		if(!validMove)
 			std::cout << "Invalid move. Try again." << std::endl;
 	}
 
@@ -166,9 +166,7 @@ bool Player::validateMove(std::string playerMove)
 		}
 	}
 
-	// check if move is being performed on one of player's pieces
 	coordinate originalCoord{(int)playerMove[0] - 96, (int)playerMove[1] - 48};
-	coordinate targetCoord{(int)playerMove[2] - 96, (int)playerMove[3] - 48};
 
 	try
 	{
@@ -178,20 +176,6 @@ bool Player::validateMove(std::string playerMove)
 	{
 		valid = false;
 		std::cout << "not on player piece" << std::endl;
-	}
-
-	pruneMovePaths(possibleMoves);
-
-	// TODO: use the generated moves in player move validation
-	// 	loop through coordinates see if a piece exists there
-
-	// call the validate move function for the specific piece behaviour
-	//   e.g. check if pawn move is valid
-
-	if(valid) // move is being called on player piece. now the specific piece
-			  //   move behaviour needs to be checked
-	{
-		valid = pieces.at(originalCoord)->validateMove(originalCoord, targetCoord, &possibleMoves);
 	}
 
 	return valid;
@@ -214,21 +198,21 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	pieces.insert(std::move(node));
 }
 
-void Player::pruneMovePaths(std::vector<std::vector<coordinate>>& movePaths)
+void Player::pruneMovePaths(std::unordered_map<coordinate, Piece*>* pieceMap)
 {
-	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieces.begin();
-	int pathSize1D = movePaths.size();
+	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieceMap->begin();
+	int pathSize1D = possibleMoves.size();
 	int pathSize2D;
 
-	while(pieceItr != pieces.end())
+	while(pieceItr != pieceMap->end())
 	{
 		// check if any move path coordinate exists as piece
 		for(int i = 0; i < pathSize1D; i++)
 		{
-			pathSize2D = movePaths[i].size();
+			pathSize2D = possibleMoves[i].size();
 			for(int j = 0; j < pathSize2D; j++)
 			{
-				if(movePaths[i][j] == pieceItr->second->getPieceInfo().coords)
+				if(possibleMoves[i][j] == pieceItr->second->getPieceInfo().coords)
 				{
 					/* coordinates in the vector are in order 
 					 *  from closest->furthest from original position
@@ -237,7 +221,7 @@ void Player::pruneMovePaths(std::vector<std::vector<coordinate>>& movePaths)
 					 */
 
 					// delete everything past and including the found piece in the way
-					movePaths.erase(movePaths.begin() + j, movePaths.end());
+					possibleMoves[i].erase(possibleMoves[i].begin() + j, possibleMoves[i].end());
 
 					break;
 				}
@@ -246,4 +230,9 @@ void Player::pruneMovePaths(std::vector<std::vector<coordinate>>& movePaths)
 
 		pieceItr++;
 	}	
+}
+
+bool Player::isValidPieceMove(coordinate originalCoord, coordinate targetCoord)
+{
+	return pieces[originalCoord]->validateMove(targetCoord, possibleMoves);
 }

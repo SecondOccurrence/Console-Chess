@@ -41,8 +41,28 @@ std::vector<std::vector<coordinate>> Piece::fetchMoves(coordinate startingPos)
 	return {};
 }
 
-bool Piece::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
+bool Piece::validateMove(coordinate targetCoord, std::vector<std::vector<coordinate>>& movePaths)
 {
-	return true;
+	bool valid = false;
+	int pathSize1D = movePaths.size();
+	int pathSize2D;
+	for(int i = 0; i < pathSize1D; i++)
+	{
+		pathSize2D = movePaths[i].size();
+		for(int j = 0; j < pathSize2D; j++)
+		{
+			if(movePaths[i][j] == targetCoord)
+			{
+				std::cout << "this is a valid move" << std::endl;
+				valid = true;
+				break;
+			}
+		}
+
+		if(valid == true)
+			break;
+	}
+
+	return valid;
 }
 

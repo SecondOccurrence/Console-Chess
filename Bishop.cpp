@@ -47,13 +47,6 @@ std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 	return possibleMoves;
 }
 
-bool Bishop::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
-{
-	
-
-	return false;
-}
-
 std::vector<coordinate> Bishop::addMoves(coordinate coords, int xInc, int yInc, int lim1, int lim2)
 {
 	std::vector<coordinate> newMovePath;

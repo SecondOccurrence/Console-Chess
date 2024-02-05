@@ -22,4 +22,5 @@ private:
 
 	std::string getFENString();
 	void performMove(boardSide moveSide, std::string move);
+	bool isValidMove(std::string move);
 };

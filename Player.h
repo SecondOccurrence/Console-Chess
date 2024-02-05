@@ -25,12 +25,13 @@ public:
 	std::unordered_map<coordinate, Piece*>* getPieces();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
+	void pruneMovePaths(std::unordered_map<coordinate, Piece*>* pieceMap);
+	bool isValidPieceMove(coordinate originalCoord, coordinate targetCoord);
+
 private:
 	boardSide playerSide;
 	std::unordered_map<coordinate, Piece*> pieces;
 	// current piece to move's possible positions
 	//   each sub-vector corresponds to each move path
 	std::vector<std::vector<coordinate>> possibleMoves;
-
-	void pruneMovePaths(std::vector<std::vector<coordinate>>& movePaths);
 };

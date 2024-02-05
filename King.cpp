@@ -20,8 +20,3 @@ std::vector<std::vector<coordinate>> King::fetchMoves(coordinate startingPos)
 {
 	return std::vector<std::vector<coordinate>>{};
 }
-
-bool King::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
-{
-	return false;
-}

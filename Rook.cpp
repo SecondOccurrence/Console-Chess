@@ -20,8 +20,3 @@ std::vector<std::vector<coordinate>> Rook::fetchMoves(coordinate startingPos)
 {
 	return std::vector<std::vector<coordinate>>{};
 }
-
-bool Rook::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
-{
-	return false;
-}

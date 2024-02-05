@@ -20,8 +20,3 @@ std::vector<std::vector<coordinate>> Knight::fetchMoves(coordinate startingPos)
 {
 	return std::vector<std::vector<coordinate>>{};
 }
-
-bool Knight::validateMove(coordinate oldCoord, coordinate targetCoord, std::vector<std::vector<coordinate>>* movePaths)
-{
-	return false;
-}

@@ -34,14 +34,17 @@ bool GameManager::run()
 	if(sideToMove == WHITE)
 	{
 		move = whiteSide->getMove();
-		// game needs to check if move goes past or lands on an existing opponent piece
 
-		// have player return every possible move
-		//   player validates, breaks out if player piece interrupt
-		//   game validates, breaks out if opponent piece interrupt
-		//   move proceeds..
-		performMove(sideToMove, move);
-		sideToMove = BLACK;
+		bool validMove = isValidMove(move);
+		if (!validMove)
+		{
+			std::cout << "Invalid move. Try again." << std::endl;
+		}
+		else
+		{
+			performMove(sideToMove, move);
+			sideToMove = BLACK;
+		}	
 	}
 	else
 	{
@@ -179,4 +182,24 @@ void GameManager::performMove(boardSide moveSide, std::string move)
 	{
 		blackSide->assignNewPosition(initialCoords, moveCoords);
 	}
+}
+
+bool GameManager::isValidMove(std::string move)
+{
+	bool valid = whiteSide->validateMove(move);
+
+	if(valid)
+	{
+		// prune moves being blocked by players pieces
+		whiteSide->pruneMovePaths(whiteSide->getPieces());
+		// now by opponent pieces
+		whiteSide->pruneMovePaths(blackSide->getPieces());
+
+		coordinate originalCoord{(int)move[0] - 96, (int)move[1] - 48};
+		coordinate targetCoord{(int)move[2] - 96, (int)move[3] - 48};
+	
+		valid = whiteSide->isValidPieceMove(originalCoord, targetCoord);
+	}
+
+	return valid;
 }
