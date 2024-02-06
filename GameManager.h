@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Player.h"
 #include "Board.h"
 #include "BoardSideEnum.h"
 #include "Coordinate.h"
+#include "Player.h"
+
+#include <unordered_map>
 
 class GameManager
 {

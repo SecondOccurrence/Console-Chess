@@ -1,12 +1,13 @@
 #pragma once
+
+#include "BoardSideEnum.h"
+#include "Coordinate.h"
 #include "Piece.h"
 #include "PieceInfo.h"
-#include "Coordinate.h"
-#include "BoardSideEnum.h"
 
-#include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 
 class Player
 {

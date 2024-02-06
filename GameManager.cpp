@@ -1,11 +1,10 @@
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <unordered_map>
-
 #include "GameManager.h"
 #include "Piece.h"
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 GameManager::GameManager()
 {

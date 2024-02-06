@@ -4,6 +4,7 @@
 #include "Piece.h"
 
 #include <unordered_map>
+#include <vector>
 
 class Board
 {

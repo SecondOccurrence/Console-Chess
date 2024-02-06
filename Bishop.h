@@ -1,6 +1,10 @@
 #pragma once
-#include "Piece.h"
+
+#include "BoardSideEnum.h"
 #include "Coordinate.h"
+#include "Piece.h"
+
+#include <vector>
 
 class Bishop : public Piece
 {

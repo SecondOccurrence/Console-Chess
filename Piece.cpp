@@ -1,7 +1,5 @@
 #include "Piece.h"
 
-#include <iostream>
-
 Piece::Piece()
 {
 	info.side = WHITE;
@@ -37,7 +35,6 @@ PieceInfo Piece::getPieceInfo()
 
 std::vector<std::vector<coordinate>> Piece::fetchMoves(coordinate startingPos)
 {
-	std::cout << "hwef" << std::endl;
 	return {};
 }
 

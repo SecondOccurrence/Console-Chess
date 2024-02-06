@@ -1,10 +1,12 @@
 #include "Player.h"
 #include "Pawn.h"
-#include "Knight.h"
 #include "Bishop.h"
-#include "Rook.h"
-#include "Queen.h"
 #include "King.h"
+#include "Knight.h"
+#include "Queen.h"
+#include "Rook.h"
+
+#include <iostream>
 
 Player::Player()
 {
@@ -13,14 +15,13 @@ Player::Player()
 
 Player::~Player()
 {
-
-	std::cout << "EFLAEIHILQFJFQEHJFQWFPFHWEPQEO:FJIQEOFJ{OQWIFJ" << std::endl;
 	for(std::unordered_map<coordinate, Piece*>::iterator it = pieces.begin(); it != pieces.end(); )
 	{
 		delete it->second;
 		it = pieces.erase(it);
 	}
 }
+
 Player::Player(boardSide chosenSide)
 {
 	playerSide = chosenSide;

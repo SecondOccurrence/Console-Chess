@@ -1,9 +1,8 @@
 #pragma once
 
-#include "PieceInfo.h"
 #include "Coordinate.h"
+#include "PieceInfo.h"
 
-#include <iostream>
 #include <vector>
 
 class Piece
