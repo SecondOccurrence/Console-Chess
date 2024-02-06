@@ -31,11 +31,18 @@ bool GameManager::run()
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();
 
+	bool validMove;
 	if(sideToMove == WHITE)
 	{
 		move = whiteSide->getMove();
 
-		bool validMove = isValidMove(move);
+		if(move == "skip")
+		{
+			sideToMove = WHITE;
+			return gameEnded; // testing purposes
+		}
+
+		validMove = isValidMove(move, whiteSide, blackSide);
 		if (!validMove)
 		{
 			std::cout << "Invalid move. Try again." << std::endl;
@@ -49,14 +56,23 @@ bool GameManager::run()
 	else
 	{
 		move = blackSide->getMove();
+
 		if(move == "skip")
 		{
 			sideToMove = WHITE;
 			return gameEnded; // testing purposes
 		}
 
-		performMove(sideToMove, move);
-		sideToMove = WHITE;
+		validMove = isValidMove(move, blackSide, whiteSide);
+		if(!validMove)
+		{
+			std::cout << "Invalid move. Try again." << std::endl;
+		}
+		else
+		{
+			performMove(sideToMove, move);
+			sideToMove = BLACK;
+		}
 	}
 
 	//move pieces, return value
@@ -184,30 +200,33 @@ void GameManager::performMove(boardSide moveSide, std::string move)
 	}
 }
 
-bool GameManager::isValidMove(std::string move)
+bool GameManager::isValidMove(std::string move, Player* allySide, Player* opponentSide)
 {
-	bool valid = whiteSide->validateMove(move);
+
+	bool valid = allySide->validateMove(move);
 	bool isCapture;
 
-	if(valid)
+	if(!valid)
 	{
-		// prune moves being blocked by players pieces
-		whiteSide->pruneMovePathsInt(whiteSide->getPieces());
-		// now by opponent pieces
-		whiteSide->pruneMovePathsExt(blackSide->getPieces());
+		return false;
+	}
 
-		coordinate originalCoord{(int)move[0] - 96, (int)move[1] - 48};
-		coordinate targetCoord{(int)move[2] - 96, (int)move[3] - 48};
+	// prune moves being blocked by players pieces
+	allySide->pruneMovePathsInt();
+	// now by opponent pieces
+	allySide->pruneMovePathsExt(opponentSide->getPieces());
+
+	coordinate originalCoord{(int)move[0] - 96, (int)move[1] - 48};
+	coordinate targetCoord{(int)move[2] - 96, (int)move[3] - 48};
 	
-		valid = whiteSide->isValidPieceMove(originalCoord, targetCoord);
+	valid = allySide->isValidPieceMove(originalCoord, targetCoord);
 
-		// check if two clashing pieces, remove the other as its been captured
-		isCapture = checkForCapture(targetCoord, whiteSide->getPieces(), blackSide->getPieces());
+	// check if two clashing pieces, remove the other as its been captured
+	isCapture = checkForCapture(targetCoord, allySide->getPieces(), opponentSide->getPieces());
 
-		if(isCapture)
-		{
-			blackSide->removePiece(targetCoord);
-		}
+	if(isCapture)
+	{
+		opponentSide->removePiece(targetCoord);
 	}
 
 	return valid;

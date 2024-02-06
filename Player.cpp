@@ -198,13 +198,13 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 	pieces.insert(std::move(node));
 }
 
-void Player::pruneMovePathsInt(std::unordered_map<coordinate, Piece*>* pieceMap)
+void Player::pruneMovePathsInt()
 {
-	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieceMap->begin();
+	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieces.begin();
 	int pathSize1D = possibleMoves.size();
 	int pathSize2D;
 
-	while(pieceItr != pieceMap->end())
+	while(pieceItr != pieces.end())
 	{
 		// check if any move path coordinate exists as piece
 		for(int i = 0; i < pathSize1D; i++)

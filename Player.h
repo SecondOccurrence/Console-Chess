@@ -25,7 +25,7 @@ public:
 	std::unordered_map<coordinate, Piece*>* getPieces();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
-	void pruneMovePathsInt(std::unordered_map<coordinate, Piece*>* pieceMap);
+	void pruneMovePathsInt();
 	void pruneMovePathsExt(std::unordered_map<coordinate, Piece*>* pieceMap);
 	
 

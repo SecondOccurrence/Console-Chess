@@ -23,7 +23,7 @@ private:
 
 	std::string getFENString();
 	void performMove(boardSide moveSide, std::string move);
-	bool isValidMove(std::string move);
+	bool isValidMove(std::string move, Player* allySide, Player* opponentSide);
 
 	bool checkForCapture(coordinate targetCoord, std::unordered_map<coordinate, Piece*>* allyPieces, std::unordered_map<coordinate, Piece*>* opponentPieces);
 };
