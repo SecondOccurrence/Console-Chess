@@ -15,7 +15,7 @@ Player::Player()
 
 Player::~Player()
 {
-	for(std::unordered_map<coordinate, Piece*>::iterator it = pieces.begin(); it != pieces.end(); )
+	for(PieceMap::iterator it = pieces.begin(); it != pieces.end(); )
 	{
 		delete it->second;
 		it = pieces.erase(it);
@@ -182,12 +182,12 @@ bool Player::validateMove(std::string playerMove)
 	return valid;
 }
 
-const std::vector<std::vector<coordinate>>* Player::getPossibleMoves()
+const CoordinateVec2D* Player::getPossibleMoves()
 {
 	return &possibleMoves;	
 }
 
-std::unordered_map<coordinate, Piece*>* Player::getPieces()
+PieceMap* Player::getPieces()
 {
 	return &pieces;
 }
@@ -201,7 +201,7 @@ void Player::assignNewPosition(coordinate oldCoords, coordinate newCoords)
 
 void Player::pruneMovePathsInt()
 {
-	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieces.begin();
+	PieceMap::iterator pieceItr = pieces.begin();
 	int pathSize1D = possibleMoves.size();
 	int pathSize2D;
 
@@ -234,9 +234,9 @@ void Player::pruneMovePathsInt()
 }
 
 // used externally as clashing with an opponent piece means capture, not collision
-void Player::pruneMovePathsExt(std::unordered_map<coordinate, Piece*>* pieceMap)
+void Player::pruneMovePathsExt(PieceMap* pieceMap)
 {
-	std::unordered_map<coordinate, Piece*>::iterator pieceItr = pieceMap->begin();
+	PieceMap::iterator pieceItr = pieceMap->begin();
 	int pathSize1D = possibleMoves.size();
 	int pathSize2D;
 

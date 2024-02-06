@@ -5,6 +5,8 @@
 
 #include <vector>
 
+typedef std::vector<std::vector<coordinate>> CoordinateVec2D;
+
 class Piece
 {
 public:
@@ -18,8 +20,8 @@ public:
 
 	PieceInfo getPieceInfo();
 
-	bool validateMove(coordinate targetCoord, std::vector<std::vector<coordinate>>& movePaths);
-	virtual std::vector<std::vector<coordinate>> fetchMoves(coordinate startingPos);
+	bool validateMove(coordinate targetCoord, CoordinateVec2D& movePaths);
+	virtual CoordinateVec2D fetchMoves(coordinate startingPos);
 
 protected:
 	PieceInfo info;

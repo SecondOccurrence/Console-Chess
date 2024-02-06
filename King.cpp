@@ -16,7 +16,7 @@ King::King(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<std::vector<coordinate>> King::fetchMoves(coordinate startingPos)
+CoordinateVec2D King::fetchMoves(coordinate startingPos)
 {
-	return std::vector<std::vector<coordinate>>{};
+	return CoordinateVec2D{};
 }

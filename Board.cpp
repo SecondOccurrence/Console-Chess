@@ -4,18 +4,18 @@
 
 Board::Board()
 {
-	std::vector<std::vector<int>> arr(8, std::vector<int>(8, 12));
+	IntVec2D arr(8, std::vector<int>(8, 12));
 	boardCells = arr;
 }
 
-void Board::updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::unordered_map<coordinate, Piece*>* piecesB)
+void Board::updateBoard(PieceMap* piecesA, PieceMap* piecesB)
 {
 	resetBoard(); // clear the board so only the most recent piece postitions are displayed
 
 	coordinate currentCoord;
 	PieceInfo currentPiece;	
 
-	std::unordered_map<coordinate, Piece*>::iterator itA = piecesA->begin();
+	PieceMap::iterator itA = piecesA->begin();
 	while(itA != piecesA->end())
 	{
 		currentCoord = itA->first;
@@ -27,7 +27,7 @@ void Board::updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::un
 		itA++;
 	}
 
-	std::unordered_map<coordinate, Piece*>::iterator itB = piecesB->begin();
+	PieceMap::iterator itB = piecesB->begin();
 	while(itB != piecesB->end())
 	{
 		currentCoord = itB->first;
@@ -40,7 +40,7 @@ void Board::updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::un
 	}
 }
 
-const std::vector<std::vector<int>>& Board::getBoard() const
+const IntVec2D& Board::getBoard() const
 {
 	return boardCells;
 }

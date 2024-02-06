@@ -16,9 +16,9 @@ Queen::Queen(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<std::vector<coordinate>> Queen::fetchMoves(coordinate startingPos)
+CoordinateVec2D Queen::fetchMoves(coordinate startingPos)
 {
-	return std::vector<std::vector<coordinate>>{};
+	return CoordinateVec2D{};
 }
 
 

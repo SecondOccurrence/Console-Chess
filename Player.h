@@ -9,6 +9,9 @@
 #include <unordered_map>
 #include <vector>
 
+typedef std::vector<std::vector<coordinate>> CoordinateVec2D;
+typedef std::unordered_map<coordinate, Piece*> PieceMap;
+
 class Player
 {
 public:
@@ -21,13 +24,13 @@ public:
 
 	std::string getMove();
 	bool validateMove(std::string playerMove);
-	const std::vector<std::vector<coordinate>>* getPossibleMoves();
+	const CoordinateVec2D* getPossibleMoves();
 
-	std::unordered_map<coordinate, Piece*>* getPieces();
+	PieceMap* getPieces();
 	void assignNewPosition(coordinate oldCoords, coordinate newCoords);
 
 	void pruneMovePathsInt();
-	void pruneMovePathsExt(std::unordered_map<coordinate, Piece*>* pieceMap);
+	void pruneMovePathsExt(PieceMap* pieceMap);
 	
 
 	bool isValidPieceMove(coordinate originalCoord, coordinate targetCoord);
@@ -36,8 +39,8 @@ public:
 
 private:
 	boardSide playerSide;
-	std::unordered_map<coordinate, Piece*> pieces;
+	PieceMap pieces;
 	// current piece to move's possible positions
 	//   each sub-vector corresponds to each move path
-	std::vector<std::vector<coordinate>> possibleMoves;
+	CoordinateVec2D possibleMoves;
 };

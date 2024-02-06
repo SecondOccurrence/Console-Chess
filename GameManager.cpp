@@ -24,8 +24,8 @@ bool GameManager::run()
 	bool gameEnded = false;
 	std::string move;
 
-	std::unordered_map<coordinate, Piece*>* whitePieces = whiteSide->getPieces();
-	std::unordered_map<coordinate, Piece*>* blackPieces = blackSide->getPieces();
+	PieceMap* whitePieces = whiteSide->getPieces();
+	PieceMap* blackPieces = blackSide->getPieces();
 
 	board.updateBoard(whitePieces, blackPieces);
 	displayBoard();
@@ -231,11 +231,11 @@ bool GameManager::isValidMove(std::string move, Player* allySide, Player* oppone
 	return valid;
 }
 
-bool GameManager::checkForCapture(coordinate targetCoord, std::unordered_map<coordinate, Piece*>* allyPieces, std::unordered_map<coordinate, Piece*>* opponentPieces)
+bool GameManager::checkForCapture(coordinate targetCoord, PieceMap* allyPieces, PieceMap* opponentPieces)
 {
 	bool pieceFound = false;
 
-	std::unordered_map<coordinate, Piece*>::iterator opponentPieceItr = opponentPieces->begin();
+	PieceMap::iterator opponentPieceItr = opponentPieces->begin();
 
 	Piece* currentPiece;
 	while(opponentPieceItr != opponentPieces->end())

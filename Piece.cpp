@@ -33,12 +33,12 @@ PieceInfo Piece::getPieceInfo()
 	return info;
 }
 
-std::vector<std::vector<coordinate>> Piece::fetchMoves(coordinate startingPos)
+CoordinateVec2D Piece::fetchMoves(coordinate startingPos)
 {
 	return {};
 }
 
-bool Piece::validateMove(coordinate targetCoord, std::vector<std::vector<coordinate>>& movePaths)
+bool Piece::validateMove(coordinate targetCoord, CoordinateVec2D& movePaths)
 {
 	bool valid = false;
 	int pathSize1D = movePaths.size();

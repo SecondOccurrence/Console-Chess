@@ -16,7 +16,7 @@ Pawn::Pawn(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<std::vector<coordinate>> Pawn::fetchMoves(coordinate startingPos)
+CoordinateVec2D Pawn::fetchMoves(coordinate startingPos)
 {
 	// TODO: prune move vector in this function.
 	//   saves time when looping in the future.

@@ -6,18 +6,21 @@
 #include <unordered_map>
 #include <vector>
 
+typedef std::unordered_map<coordinate, Piece*> PieceMap;
+typedef std::vector<std::vector<int>> IntVec2D;
+
 class Board
 {
 public:
 	Board();
 
-	void updateBoard(std::unordered_map<coordinate, Piece*>* piecesA, std::unordered_map<coordinate, Piece*>* piecesB);
-	const std::vector<std::vector<int>>& getBoard() const;
+	void updateBoard(PieceMap* piecesA, PieceMap* piecesB);
+	const IntVec2D& getBoard() const;
 	int getPieceAtPos(int xPos, int yPos) const;
 
 	void resetBoard(); // public as GameManager will use this when importing game state
 	
 private:
 	const int xySize = 8;
-	std::vector<std::vector<int>> boardCells;
+	IntVec2D boardCells;
 };

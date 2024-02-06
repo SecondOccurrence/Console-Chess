@@ -17,16 +17,16 @@ Bishop::Bishop(boardSide val, int posX, int posY)
 }
 
 // change to return pointer
-std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
+CoordinateVec2D Bishop::fetchMoves(coordinate startingPos)
 {
-	std::vector<std::vector<coordinate>> possibleMoves;
+	CoordinateVec2D possibleMoves;
 
 	int maxLeft = startingPos.x - 1;
 	int maxRight = 8 - startingPos.x;
 	int maxUp = 8 - startingPos.y;
 	int maxDown = startingPos.y - 1;
 
-	std::vector<coordinate> movePath;
+	CoordinateVec1D movePath;
 	
 	// right up diagonal path
 	movePath = addMoves(startingPos, 1, 1, maxRight, maxUp);
@@ -47,9 +47,9 @@ std::vector<std::vector<coordinate>> Bishop::fetchMoves(coordinate startingPos)
 	return possibleMoves;
 }
 
-std::vector<coordinate> Bishop::addMoves(coordinate coords, int xInc, int yInc, int lim1, int lim2)
+CoordinateVec1D Bishop::addMoves(coordinate coords, int xInc, int yInc, int lim1, int lim2)
 {
-	std::vector<coordinate> newMovePath;
+	CoordinateVec1D newMovePath;
 
 	int minLimit;
 	if(lim1 < lim2)

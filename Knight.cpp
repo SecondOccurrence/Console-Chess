@@ -16,7 +16,7 @@ Knight::Knight(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<std::vector<coordinate>> Knight::fetchMoves(coordinate startingPos)
+CoordinateVec2D Knight::fetchMoves(coordinate startingPos)
 {
-	return std::vector<std::vector<coordinate>>{};
+	return CoordinateVec2D{};
 }

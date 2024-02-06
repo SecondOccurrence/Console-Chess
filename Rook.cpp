@@ -16,7 +16,7 @@ Rook::Rook(boardSide val, int posX, int posY)
 	}
 }
 
-std::vector<std::vector<coordinate>> Rook::fetchMoves(coordinate startingPos)
+CoordinateVec2D Rook::fetchMoves(coordinate startingPos)
 {
-	return std::vector<std::vector<coordinate>>{};
+	return CoordinateVec2D{};
 }

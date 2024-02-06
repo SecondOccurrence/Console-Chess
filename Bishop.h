@@ -6,14 +6,17 @@
 
 #include <vector>
 
+typedef std::vector<coordinate> CoordinateVec1D;
+typedef std::vector<std::vector<coordinate>> CoordinateVec2D;
+
 class Bishop : public Piece
 {
 public:
 	Bishop(boardSide val, int posX, int posY);
 
-	std::vector<std::vector<coordinate>> fetchMoves(coordinate startingPos) override;
+	CoordinateVec2D fetchMoves(coordinate startingPos) override;
 
 private:
-	std::vector<coordinate> addMoves(coordinate coords, int lim1, int lim1Inc, int lim2, int lim2Inc);
+	CoordinateVec1D addMoves(coordinate coords, int lim1, int lim1Inc, int lim2, int lim2Inc);
 
 };

@@ -6,10 +6,13 @@
 
 #include <vector>
 
+typedef std::vector<coordinate> CoordinateVec1D;
+typedef std::vector<std::vector<coordinate>> CoordinateVec2D;
+
 class Queen : public Piece
 {
 public:
 	Queen(boardSide val, int posX, int posY);
 
-	std::vector<std::vector<coordinate>> fetchMoves(coordinate startingPos) override;	
+	CoordinateVec2D fetchMoves(coordinate startingPos) override;	
 };

@@ -7,6 +7,8 @@
 
 #include <unordered_map>
 
+typedef std::unordered_map<coordinate, Piece*> PieceMap;
+
 class GameManager
 {
 public:
@@ -27,5 +29,5 @@ private:
 	void performMove(boardSide moveSide, std::string move);
 	bool isValidMove(std::string move, Player* allySide, Player* opponentSide);
 
-	bool checkForCapture(coordinate targetCoord, std::unordered_map<coordinate, Piece*>* allyPieces, std::unordered_map<coordinate, Piece*>* opponentPieces);
+	bool checkForCapture(coordinate targetCoord, PieceMap* allyPieces, PieceMap* opponentPieces);
 };
